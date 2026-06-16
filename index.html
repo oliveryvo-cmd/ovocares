@@ -20,13 +20,15 @@ body{background:#0a0a2a;font-family:'Segoe UI',Arial,sans-serif;color:#fff;min-h
 #sp-sub{font-size:0.6rem;letter-spacing:4px;color:#4488ff55;opacity:0;transition:opacity 0.6s;}
 
 /* NAV */
-nav{background:#0d0d33;border-bottom:1px solid #ffffff11;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
-.nav-logo{font-size:1.1rem;font-weight:900;letter-spacing:3px;color:#4488ff;text-shadow:0 0 10px #4488ff55;}
+nav{background:#0d0d33;border-bottom:1px solid #ffffff11;padding:10px 16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:50;}
+.nav-logo{font-size:1.1rem;font-weight:900;letter-spacing:3px;color:#4488ff;text-shadow:0 0 10px #4488ff55;margin-right:auto;}
 .nav-logo span{color:#ff88cc;}
-#font-btns{display:flex;gap:6px;}
-.font-btn{padding:4px 10px;background:#ffffff11;border:1px solid #ffffff22;color:#aaa;font-size:0.7rem;border-radius:4px;cursor:pointer;transition:all 0.2s;}
+.nav-link{padding:5px 10px;background:#ffffff08;border:1px solid #ffffff11;color:#aaa;font-size:0.6rem;font-weight:700;letter-spacing:2px;border-radius:4px;cursor:pointer;text-decoration:none;transition:all 0.2s;}
+.nav-link:hover{background:#4488ff22;border-color:#4488ff;color:#fff;}
+#font-btns{display:flex;gap:4px;}
+.font-btn{padding:4px 9px;background:#ffffff11;border:1px solid #ffffff22;color:#aaa;font-size:0.7rem;border-radius:4px;cursor:pointer;transition:all 0.2s;}
 .font-btn:hover{background:#4488ff22;border-color:#4488ff;color:#fff;}
-#tts-toggle{padding:6px 14px;background:#00cc8822;border:1px solid #00cc88;color:#00cc88;font-size:0.7rem;font-weight:700;border-radius:4px;cursor:pointer;letter-spacing:2px;}
+#tts-toggle{padding:6px 12px;background:#00cc8822;border:1px solid #00cc88;color:#00cc88;font-size:0.7rem;font-weight:700;border-radius:4px;cursor:pointer;letter-spacing:2px;}
 #tts-toggle.on{background:#00cc88;color:#000;}
 
 /* HERO */
@@ -36,16 +38,28 @@ nav{background:#0d0d33;border-bottom:1px solid #ffffff11;padding:12px 20px;displ
 .hero-btn{display:inline-block;padding:14px 40px;background:linear-gradient(135deg,#4488ff,#aa44ff);color:#fff;font-size:1rem;font-weight:900;letter-spacing:4px;border-radius:50px;cursor:pointer;border:none;text-decoration:none;box-shadow:0 4px 24px #4488ff44;transition:all 0.2s;}
 .hero-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px #4488ff66;}
 
+/* SOS */
+#sos-bar{background:#ff445511;border-bottom:2px solid #ff445533;padding:10px 20px;text-align:center;}
+#sos-big{display:inline-block;padding:12px 40px;background:#ff4455;color:#fff;font-size:1rem;font-weight:900;letter-spacing:4px;border-radius:50px;cursor:pointer;border:none;box-shadow:0 0 20px #ff445566;animation:sosPulse 2s ease infinite;}
+@keyframes sosPulse{0%,100%{box-shadow:0 0 20px #ff445566;}50%{box-shadow:0 0 40px #ff4455aa;}}
+#sos-panel{display:none;padding:20px;background:#ff445511;border-top:1px solid #ff445533;}
+#sos-panel h3{font-size:0.9rem;letter-spacing:3px;color:#ff4455;margin-bottom:16px;text-align:center;}
+.sos-grid{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;}
+.sos-action{padding:14px 24px;border-radius:10px;font-size:0.85rem;font-weight:900;letter-spacing:2px;cursor:pointer;border:none;text-decoration:none;display:inline-block;text-align:center;}
+
 /* SECTIONS */
 .section{padding:60px 20px;border-top:1px solid #ffffff11;max-width:900px;margin:0 auto;}
 .sec-title{font-size:clamp(1.2rem,4vw,1.8rem);font-weight:900;letter-spacing:4px;margin-bottom:8px;text-align:center;}
 .sec-line{width:50px;height:3px;margin:0 auto 40px;border-radius:2px;}
 
-/* COMMUNICATION */
-.speak-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;margin-bottom:24px;}
-.speak-btn{padding:20px 10px;background:#ffffff08;border:2px solid #4488ff33;border-radius:12px;color:#fff;font-size:1.8rem;text-align:center;cursor:pointer;transition:all 0.2s;user-select:none;}
+/* COMMUNICATION CATEGORIES */
+.comm-cats{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:20px;}
+.comm-cat{padding:7px 16px;background:#ffffff08;border:1px solid #4488ff33;border-radius:20px;font-size:0.65rem;font-weight:700;letter-spacing:2px;cursor:pointer;color:#aaa;transition:all 0.2s;}
+.comm-cat.active,.comm-cat:hover{background:#4488ff22;border-color:#4488ff;color:#4488ff;}
+.speak-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-bottom:20px;}
+.speak-btn{padding:18px 8px;background:#ffffff08;border:2px solid #4488ff33;border-radius:12px;color:#fff;font-size:1.8rem;text-align:center;cursor:pointer;transition:all 0.2s;user-select:none;}
 .speak-btn:hover,.speak-btn:active{background:#4488ff22;border-color:#4488ff;transform:scale(1.05);}
-.speak-btn .sb-label{display:block;font-size:0.65rem;letter-spacing:2px;color:#aaa;margin-top:6px;}
+.speak-btn .sb-label{display:block;font-size:0.6rem;letter-spacing:2px;color:#aaa;margin-top:6px;}
 #speak-display{background:#ffffff08;border:1px solid #ffffff22;border-radius:8px;padding:16px 20px;font-size:1.1rem;letter-spacing:2px;color:#fff;min-height:60px;margin-bottom:12px;word-break:break-word;}
 #speak-controls{display:flex;gap:8px;flex-wrap:wrap;}
 .sc-btn{padding:10px 20px;border-radius:8px;font-size:0.8rem;font-weight:700;letter-spacing:2px;cursor:pointer;border:none;transition:all 0.2s;}
@@ -60,6 +74,7 @@ nav{background:#0d0d33;border-bottom:1px solid #ffffff11;padding:12px 20px;displ
 .reminder-form{display:flex;flex-direction:column;gap:10px;max-width:480px;margin:0 auto 32px;}
 .r-input{padding:12px 16px;background:#ffffff08;border:1px solid #ffffff22;border-radius:8px;color:#fff;font-size:0.9rem;letter-spacing:1px;outline:none;}
 .r-input:focus{border-color:#ffcc00;}
+.r-select{padding:12px 16px;background:#0d0d33;border:1px solid #ffffff22;border-radius:8px;color:#fff;font-size:0.85rem;outline:none;}
 #add-reminder-btn{padding:12px 30px;background:#ffcc00;color:#000;font-weight:900;letter-spacing:3px;border:none;border-radius:8px;cursor:pointer;font-size:0.85rem;}
 #reminders-list{display:flex;flex-direction:column;gap:8px;max-width:480px;margin:0 auto;}
 .reminder-item{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#ffffff08;border:1px solid #ffcc0033;border-radius:8px;}
@@ -68,6 +83,62 @@ nav{background:#0d0d33;border-bottom:1px solid #ffffff11;padding:12px 20px;displ
 .reminder-item .ri-time{font-size:0.7rem;color:#ffcc0088;letter-spacing:2px;}
 .reminder-item .ri-del{background:transparent;border:none;color:#ff445566;cursor:pointer;font-size:1rem;padding:4px;}
 .reminder-item .ri-del:hover{color:#ff4455;}
+
+/* DAILY SCHEDULE */
+.schedule-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:24px;}
+.sched-slot{background:#ffffff08;border:1px solid #ffffff11;border-radius:12px;padding:16px 14px;cursor:pointer;transition:all 0.2s;}
+.sched-slot:hover{border-color:#ffcc0066;background:#ffcc0011;}
+.sched-slot.done{border-color:#00cc88;background:#00cc8811;opacity:0.7;}
+.sched-slot .ss-time{font-size:0.65rem;letter-spacing:3px;color:#ffcc00;margin-bottom:6px;}
+.sched-slot .ss-icon{font-size:2rem;margin-bottom:6px;}
+.sched-slot .ss-name{font-size:0.75rem;font-weight:700;letter-spacing:2px;color:#fff;}
+.sched-slot.done .ss-name::after{content:' ✓';color:#00cc88;}
+.sched-add{display:flex;gap:8px;flex-wrap:wrap;max-width:540px;margin:0 auto;}
+.sched-add input,.sched-add select{padding:10px 14px;background:#ffffff08;border:1px solid #ffffff22;border-radius:8px;color:#fff;font-size:0.8rem;outline:none;flex:1;min-width:120px;}
+#add-sched-btn{padding:10px 20px;background:#ffcc00;color:#000;font-weight:900;font-size:0.75rem;letter-spacing:2px;border:none;border-radius:8px;cursor:pointer;}
+
+/* MOOD */
+.mood-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:24px;}
+.mood-btn{padding:16px 20px;background:#ffffff08;border:2px solid #ffffff11;border-radius:12px;font-size:2rem;cursor:pointer;transition:all 0.2s;text-align:center;min-width:80px;}
+.mood-btn:hover,.mood-btn.sel{transform:scale(1.1);}
+.mood-btn span{display:block;font-size:0.55rem;letter-spacing:2px;color:#aaa;margin-top:4px;}
+#mood-msg{text-align:center;font-size:0.85rem;letter-spacing:2px;color:#aaaacc;min-height:40px;padding:16px;background:#ffffff08;border-radius:8px;max-width:480px;margin:0 auto 20px;line-height:1.8;}
+/* BREATHING */
+#breathe-btn{display:block;margin:0 auto;padding:10px 28px;background:#ff88cc22;border:1px solid #ff88cc;color:#ff88cc;font-size:0.75rem;font-weight:700;letter-spacing:3px;border-radius:8px;cursor:pointer;}
+#breathe-box{display:none;text-align:center;margin-top:20px;}
+#breathe-circle{width:120px;height:120px;border-radius:50%;border:4px solid #ff88cc;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:0.8rem;letter-spacing:2px;color:#ff88cc;transition:transform 4s ease,border-color 4s ease;}
+#breathe-label{font-size:0.7rem;letter-spacing:3px;color:#aaa;}
+#breathe-stop{margin-top:12px;padding:8px 20px;background:transparent;border:1px solid #ff445566;color:#ff445566;font-size:0.7rem;letter-spacing:2px;border-radius:4px;cursor:pointer;}
+
+/* MINI GAMES */
+.minigame-tabs{display:flex;gap:8px;justify-content:center;margin-bottom:28px;flex-wrap:wrap;}
+.mg-tab{padding:8px 18px;background:#ffffff08;border:1px solid #ffffff22;color:#aaa;font-size:0.65rem;font-weight:700;letter-spacing:2px;border-radius:6px;cursor:pointer;transition:all 0.2s;}
+.mg-tab.active,.mg-tab:hover{background:#aa44ff22;border-color:#aa44ff;color:#aa44ff;}
+.minigame-panel{display:none;}
+.minigame-panel.active{display:block;}
+/* Memory Match */
+#memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:360px;margin:0 auto 16px;}
+.mem-card{height:70px;background:#ffffff08;border:2px solid #aa44ff33;border-radius:10px;font-size:1.6rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s;user-select:none;}
+.mem-card.flipped{background:#aa44ff22;border-color:#aa44ff;}
+.mem-card.matched{background:#00cc8822;border-color:#00cc88;cursor:default;}
+#mem-status{text-align:center;font-size:0.75rem;letter-spacing:2px;color:#aaa;margin-bottom:12px;}
+#mem-restart{display:block;margin:0 auto;padding:8px 24px;background:#aa44ff;color:#fff;font-size:0.75rem;font-weight:700;letter-spacing:2px;border:none;border-radius:6px;cursor:pointer;}
+/* Color Tap */
+#color-score-row{display:flex;justify-content:space-between;max-width:340px;margin:0 auto 16px;font-size:0.7rem;letter-spacing:3px;color:#aaa;}
+#color-prompt{text-align:center;font-size:1.2rem;font-weight:900;letter-spacing:4px;margin-bottom:20px;min-height:36px;}
+#color-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:340px;margin:0 auto 16px;}
+.col-btn{height:70px;border-radius:10px;cursor:pointer;border:3px solid transparent;transition:all 0.2s;font-size:0.65rem;font-weight:700;letter-spacing:2px;color:#fff;}
+.col-btn:hover{transform:scale(1.05);border-color:#fff4;}
+#color-start{display:block;margin:0 auto;padding:10px 28px;background:#ffcc00;color:#000;font-size:0.8rem;font-weight:900;letter-spacing:3px;border:none;border-radius:8px;cursor:pointer;}
+/* Word Tap */
+#word-score-row{display:flex;justify-content:space-between;max-width:360px;margin:0 auto 16px;font-size:0.7rem;letter-spacing:3px;color:#aaa;}
+#word-question{text-align:center;font-size:1rem;font-weight:900;letter-spacing:3px;margin-bottom:20px;min-height:36px;color:#4488ff;}
+#word-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;max-width:360px;margin:0 auto 16px;}
+.word-btn{padding:18px 10px;background:#ffffff08;border:2px solid #4488ff33;border-radius:10px;font-size:0.85rem;font-weight:700;letter-spacing:2px;color:#fff;cursor:pointer;text-align:center;transition:all 0.2s;}
+.word-btn:hover{background:#4488ff22;border-color:#4488ff;}
+.word-btn.correct{background:#00cc8822;border-color:#00cc88;color:#00cc88;}
+.word-btn.wrong{background:#ff445522;border-color:#ff4455;color:#ff4455;}
+#word-start{display:block;margin:0 auto;padding:10px 28px;background:#4488ff;color:#fff;font-size:0.8rem;font-weight:900;letter-spacing:3px;border:none;border-radius:8px;cursor:pointer;}
 
 /* GAMES */
 .games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
@@ -86,20 +157,8 @@ nav{background:#0d0d33;border-bottom:1px solid #ffffff11;padding:12px 20px;displ
 .res-card a{display:inline-block;padding:6px 14px;background:#00cc8822;border:1px solid #00cc88;color:#00cc88;font-size:0.65rem;font-weight:700;letter-spacing:2px;border-radius:4px;text-decoration:none;}
 .res-card a:hover{background:#00cc88;color:#000;}
 
-/* MOOD */
-.mood-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:24px;}
-.mood-btn{padding:16px 20px;background:#ffffff08;border:2px solid #ffffff11;border-radius:12px;font-size:2rem;cursor:pointer;transition:all 0.2s;text-align:center;min-width:80px;}
-.mood-btn:hover,.mood-btn.sel{transform:scale(1.1);}
-.mood-btn span{display:block;font-size:0.55rem;letter-spacing:2px;color:#aaa;margin-top:4px;}
-#mood-msg{text-align:center;font-size:0.85rem;letter-spacing:2px;color:#aaaacc;min-height:40px;padding:12px;background:#ffffff08;border-radius:8px;max-width:480px;margin:0 auto;line-height:1.8;}
-
 /* FOOTER */
 footer{padding:40px 20px;text-align:center;border-top:1px solid #ffffff11;font-size:0.6rem;letter-spacing:3px;color:#333;}
-
-/* Accessibility: large font mode */
-body.large-font{font-size:120%;}
-body.large-font .speak-btn{font-size:2.2rem;padding:24px 12px;}
-body.large-font .sec-title{font-size:2rem;}
 </style>
 </head>
 <body>
@@ -110,50 +169,82 @@ body.large-font .sec-title{font-size:2rem;}
   <div id="sp-sub">HELPING EVERYONE</div>
 </div>
 
+<!-- NAV -->
 <nav>
   <div class="nav-logo">OVO <span>CARES</span></div>
+  <a class="nav-link" href="#sos-bar">🆘 SOS</a>
+  <a class="nav-link" href="#communicate">💬</a>
+  <a class="nav-link" href="#schedule">📅</a>
+  <a class="nav-link" href="#reminders">⏰</a>
+  <a class="nav-link" href="#mood">💙</a>
+  <a class="nav-link" href="#minigames">🎮</a>
+  <a class="nav-link" href="#resources">📋</a>
   <div id="font-btns">
     <button class="font-btn" onclick="setFont(1)">A</button>
     <button class="font-btn" onclick="setFont(1.2)" style="font-size:0.9rem;">A+</button>
     <button class="font-btn" onclick="setFont(1.5)" style="font-size:1.1rem;">A++</button>
   </div>
-  <button id="tts-toggle" onclick="toggleTTS()">🔊 SPEAK</button>
+  <button id="tts-toggle" onclick="toggleTTS()" class="on">🔊 SPEAK</button>
 </nav>
 
+<!-- SOS BAR -->
+<div id="sos-bar">
+  <button id="sos-big" onclick="toggleSOS()">🆘 EMERGENCY SOS</button>
+</div>
+<div id="sos-panel">
+  <h3>🆘 EMERGENCY — CHOOSE AN ACTION</h3>
+  <div class="sos-grid">
+    <a class="sos-action" href="tel:911" style="background:#ff4455;color:#fff;">📞 CALL 911</a>
+    <a class="sos-action" href="tel:988" style="background:#aa44ff;color:#fff;">💬 CALL 988 CRISIS</a>
+    <button class="sos-action" onclick="speak('I need help right now. Please call emergency services.');speak('I need help right now. Please call emergency services.');" style="background:#ff880022;border:2px solid #ff8800;color:#ff8800;">🔊 SAY I NEED HELP</button>
+    <button class="sos-action" onclick="toggleSOS()" style="background:#ffffff11;border:1px solid #ffffff33;color:#aaa;">✕ CLOSE</button>
+  </div>
+</div>
+
+<!-- HERO -->
 <section id="hero">
   <h1>OVO CARES</h1>
   <p>A free app to help disabled people communicate, stay organized, have fun, and find support. Made with ❤️ by Oliver Vo.</p>
-  <a href="#communicate" class="hero-btn" onclick="scrollTo('communicate')">GET STARTED</a>
+  <a href="#communicate" class="hero-btn">GET STARTED</a>
 </section>
 
 <!-- COMMUNICATE -->
 <div class="section" id="communicate">
   <div class="sec-title" style="color:#4488ff;">💬 COMMUNICATE</div>
   <div class="sec-line" style="background:#4488ff;"></div>
-  <div id="speak-display">Tap buttons below to build a message...</div>
-  <div class="speak-grid" id="speak-grid">
-    <div class="speak-btn" onclick="addWord('Hello')">👋<span class="sb-label">HELLO</span></div>
-    <div class="speak-btn" onclick="addWord('Help me')">🆘<span class="sb-label">HELP ME</span></div>
-    <div class="speak-btn" onclick="addWord('Yes')">✅<span class="sb-label">YES</span></div>
-    <div class="speak-btn" onclick="addWord('No')">❌<span class="sb-label">NO</span></div>
-    <div class="speak-btn" onclick="addWord('I am hungry')">🍽️<span class="sb-label">HUNGRY</span></div>
-    <div class="speak-btn" onclick="addWord('I am thirsty')">💧<span class="sb-label">THIRSTY</span></div>
-    <div class="speak-btn" onclick="addWord('I am tired')">😴<span class="sb-label">TIRED</span></div>
-    <div class="speak-btn" onclick="addWord('I am in pain')">😣<span class="sb-label">PAIN</span></div>
-    <div class="speak-btn" onclick="addWord('Thank you')">🙏<span class="sb-label">THANK YOU</span></div>
-    <div class="speak-btn" onclick="addWord('Please')">🤲<span class="sb-label">PLEASE</span></div>
-    <div class="speak-btn" onclick="addWord('I love you')">❤️<span class="sb-label">LOVE YOU</span></div>
-    <div class="speak-btn" onclick="addWord('I need a break')">⏸️<span class="sb-label">BREAK</span></div>
-    <div class="speak-btn" onclick="addWord('Call someone')">📞<span class="sb-label">CALL</span></div>
-    <div class="speak-btn" onclick="addWord('I am happy')">😊<span class="sb-label">HAPPY</span></div>
-    <div class="speak-btn" onclick="addWord('I am sad')">😢<span class="sb-label">SAD</span></div>
-    <div class="speak-btn" onclick="addWord('Bathroom')">🚽<span class="sb-label">BATHROOM</span></div>
+  <div class="comm-cats">
+    <div class="comm-cat active" onclick="showCat('basic',this)">BASIC</div>
+    <div class="comm-cat" onclick="showCat('feelings',this)">FEELINGS</div>
+    <div class="comm-cat" onclick="showCat('medical',this)">MEDICAL</div>
+    <div class="comm-cat" onclick="showCat('school',this)">SCHOOL</div>
+    <div class="comm-cat" onclick="showCat('social',this)">SOCIAL</div>
   </div>
+  <div id="speak-display">Tap buttons below to build a message...</div>
+  <div class="speak-grid" id="speak-grid"></div>
   <div id="speak-controls">
     <button class="sc-btn" id="say-btn" onclick="sayMessage()">🔊 SAY IT</button>
     <button class="sc-btn" id="clear-btn" onclick="clearMessage()">✕ CLEAR</button>
     <input class="custom-word" id="custom-word" placeholder="Type a word..." />
     <button id="add-word-btn" onclick="addCustomWord()">+ ADD</button>
+  </div>
+</div>
+
+<!-- DAILY SCHEDULE -->
+<div class="section" id="schedule">
+  <div class="sec-title" style="color:#ffcc00;">📅 DAILY SCHEDULE</div>
+  <div class="sec-line" style="background:#ffcc00;"></div>
+  <p style="text-align:center;font-size:0.7rem;letter-spacing:2px;color:#888;margin-bottom:24px;">Tap a task to mark it done. Your routine saves automatically.</p>
+  <div class="schedule-grid" id="schedule-grid"></div>
+  <div class="sched-add">
+    <input id="sched-name" placeholder="Task name (e.g. Take medicine)" />
+    <select id="sched-time">
+      <option value="🌅 MORNING">🌅 Morning</option>
+      <option value="☀️ AFTERNOON">☀️ Afternoon</option>
+      <option value="🌙 EVENING">🌙 Evening</option>
+      <option value="🌚 NIGHT">🌚 Night</option>
+    </select>
+    <input id="sched-icon" placeholder="Icon (emoji)" style="max-width:90px;" />
+    <button id="add-sched-btn" onclick="addSchedTask()">+ ADD</button>
   </div>
 </div>
 
@@ -164,12 +255,17 @@ body.large-font .sec-title{font-size:2rem;}
   <div class="reminder-form">
     <input class="r-input" id="r-text" placeholder="What do you need to remember? (e.g. Take medicine)" />
     <input class="r-input" id="r-time" type="time" />
+    <select class="r-select" id="r-repeat">
+      <option value="once">One time only</option>
+      <option value="daily">Every day</option>
+      <option value="weekday">Weekdays only</option>
+    </select>
     <button id="add-reminder-btn" onclick="addReminder()">+ ADD REMINDER</button>
   </div>
   <div id="reminders-list"></div>
 </div>
 
-<!-- MOOD -->
+<!-- MOOD + BREATHING -->
 <div class="section" id="mood">
   <div class="sec-title" style="color:#ff88cc;">💙 HOW ARE YOU FEELING?</div>
   <div class="sec-line" style="background:#ff88cc;"></div>
@@ -184,11 +280,52 @@ body.large-font .sec-title{font-size:2rem;}
     <div class="mood-btn" onclick="setMood('excited','#ff88cc')">🤩<span>EXCITED</span></div>
   </div>
   <div id="mood-msg">Tap a feeling above.</div>
+  <button id="breathe-btn" onclick="startBreathe()">🫁 BREATHING EXERCISE</button>
+  <div id="breathe-box">
+    <div id="breathe-circle">BREATHE IN</div>
+    <div id="breathe-label">Follow the circle</div>
+    <button id="breathe-stop" onclick="stopBreathe()">STOP</button>
+  </div>
 </div>
 
-<!-- GAMES -->
-<div class="section" id="games">
-  <div class="sec-title" style="color:#aa44ff;">🎮 FUN GAMES</div>
+<!-- MINI GAMES -->
+<div class="section" id="minigames">
+  <div class="sec-title" style="color:#aa44ff;">🎮 MINI GAMES</div>
+  <div class="sec-line" style="background:#aa44ff;"></div>
+  <p style="text-align:center;font-size:0.7rem;letter-spacing:2px;color:#888;margin-bottom:24px;">Fun brain games you can play right here — no download needed!</p>
+  <div class="minigame-tabs">
+    <div class="mg-tab active" onclick="switchGame('memory',this)">🧠 MEMORY MATCH</div>
+    <div class="mg-tab" onclick="switchGame('color',this)">🎨 COLOR TAP</div>
+    <div class="mg-tab" onclick="switchGame('word',this)">📝 WORD MATCH</div>
+  </div>
+
+  <!-- Memory Match -->
+  <div class="minigame-panel active" id="game-memory">
+    <div id="mem-status">Match all the pairs! Moves: 0</div>
+    <div id="memory-grid"></div>
+    <button id="mem-restart" onclick="initMemory()">▶ NEW GAME</button>
+  </div>
+
+  <!-- Color Tap -->
+  <div class="minigame-panel" id="game-color">
+    <div id="color-score-row"><span>SCORE: <b id="color-score">0</b></span><span>BEST: <b id="color-best">0</b></span><span>TIME: <b id="color-timer">10</b>s</span></div>
+    <div id="color-prompt">Press START to play!</div>
+    <div id="color-grid"></div>
+    <button id="color-start" onclick="startColor()">▶ START</button>
+  </div>
+
+  <!-- Word Match -->
+  <div class="minigame-panel" id="game-word">
+    <div id="word-score-row"><span>SCORE: <b id="word-score">0</b></span><span>BEST: <b id="word-best">0</b></span></div>
+    <div id="word-question">Press START to play!</div>
+    <div id="word-grid"></div>
+    <button id="word-start" onclick="startWord()">▶ START</button>
+  </div>
+</div>
+
+<!-- KRG GAMES -->
+<div class="section" id="krgames">
+  <div class="sec-title" style="color:#aa44ff;">🕹️ KRG GAMES</div>
   <div class="sec-line" style="background:#aa44ff;"></div>
   <p style="text-align:center;font-size:0.7rem;letter-spacing:2px;color:#888;margin-bottom:28px;">Free games by KidsRebellion Games — playable by everyone!</p>
   <div class="games-grid">
@@ -256,6 +393,18 @@ body.large-font .sec-title{font-size:2rem;}
       <div class="rc-desc">American Foundation for the Blind — resources for people with vision loss.</div>
       <a href="https://www.afb.org" target="_blank">VISIT AFB.ORG</a>
     </div>
+    <div class="res-card">
+      <div class="rc-icon">🤝</div>
+      <div class="rc-name">SPECIAL OLYMPICS</div>
+      <div class="rc-desc">Sports, health, and community programs for people with intellectual disabilities.</div>
+      <a href="https://www.specialolympics.org" target="_blank">VISIT SITE</a>
+    </div>
+    <div class="res-card">
+      <div class="rc-icon">🏠</div>
+      <div class="rc-name">DISABILITY.GOV</div>
+      <div class="rc-desc">Find housing, benefits, employment, and community support programs near you.</div>
+      <a href="https://www.acl.gov" target="_blank">VISIT ACL.GOV</a>
+    </div>
   </div>
 </div>
 
@@ -265,89 +414,370 @@ body.large-font .sec-title{font-size:2rem;}
 </footer>
 
 <script>
-// Splash
+// ── SPLASH ──
 setTimeout(()=>{document.getElementById('sp-name').style.opacity='1';document.getElementById('sp-sub').style.opacity='1';},600);
 setTimeout(()=>{const s=document.getElementById('splash');s.style.transition='opacity 0.7s';s.style.opacity='0';setTimeout(()=>s.style.display='none',700);},2400);
 
-// TTS
+// ── TTS ──
 let ttsOn=true;
 function toggleTTS(){ttsOn=!ttsOn;const b=document.getElementById('tts-toggle');b.textContent=ttsOn?'🔊 SPEAK':'🔇 MUTED';b.classList.toggle('on',ttsOn);}
-function speak(text){if(!ttsOn||!window.speechSynthesis)return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.rate=0.9;u.pitch=1.1;window.speechSynthesis.speak(u);}
+function speak(text){if(!ttsOn||!window.speechSynthesis)return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.rate=0.85;u.pitch=1.05;window.speechSynthesis.speak(u);}
 
-// Font size
+// ── FONT ──
 function setFont(scale){document.body.style.fontSize=(scale*16)+'px';}
 
-// Communication board
+// ── SOS ──
+let sosOpen=false;
+function toggleSOS(){
+  sosOpen=!sosOpen;
+  document.getElementById('sos-panel').style.display=sosOpen?'block':'none';
+  if(sosOpen) speak('Emergency SOS panel is open. Choose an action.');
+}
+
+// ── NAV SMOOTH SCROLL ──
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t) t.scrollIntoView({behavior:'smooth'});});
+});
+
+// ── COMMUNICATION CATEGORIES ──
+const CATS={
+  basic:[
+    {e:'👋',l:'HELLO',w:'Hello'},
+    {e:'🆘',l:'HELP ME',w:'Help me'},
+    {e:'✅',l:'YES',w:'Yes'},
+    {e:'❌',l:'NO',w:'No'},
+    {e:'🙏',l:'THANK YOU',w:'Thank you'},
+    {e:'🤲',l:'PLEASE',w:'Please'},
+    {e:'⏸️',l:'BREAK',w:'I need a break'},
+    {e:'📞',l:'CALL',w:'Call someone'},
+    {e:'🚽',l:'BATHROOM',w:'Bathroom'},
+    {e:'👍',l:'OKAY',w:'Okay'},
+    {e:'👈',l:'COME HERE',w:'Come here please'},
+    {e:'✋',l:'STOP',w:'Stop'},
+  ],
+  feelings:[
+    {e:'😊',l:'HAPPY',w:'I am happy'},
+    {e:'😢',l:'SAD',w:'I am sad'},
+    {e:'😠',l:'ANGRY',w:'I am angry'},
+    {e:'😰',l:'ANXIOUS',w:'I feel anxious'},
+    {e:'😴',l:'TIRED',w:'I am tired'},
+    {e:'😣',l:'PAIN',w:'I am in pain'},
+    {e:'😌',l:'CALM',w:'I feel calm'},
+    {e:'🤩',l:'EXCITED',w:'I am excited'},
+    {e:'😨',l:'SCARED',w:'I am scared'},
+    {e:'🥱',l:'BORED',w:'I am bored'},
+    {e:'🤗',l:'LOVED',w:'I feel loved'},
+    {e:'😤',l:'FRUSTRATED',w:'I am frustrated'},
+  ],
+  medical:[
+    {e:'💊',l:'MEDICINE',w:'I need my medicine'},
+    {e:'🤕',l:'HEADACHE',w:'I have a headache'},
+    {e:'🤢',l:'NAUSEA',w:'I feel nauseous'},
+    {e:'😤',l:'BREATHING',w:'I have trouble breathing'},
+    {e:'🩺',l:'DOCTOR',w:'I need a doctor'},
+    {e:'🏥',l:'HOSPITAL',w:'Take me to the hospital'},
+    {e:'💉',l:'INJECTION',w:'I need an injection'},
+    {e:'🩹',l:'WOUND',w:'I have a wound'},
+    {e:'🫀',l:'CHEST PAIN',w:'I have chest pain'},
+    {e:'😵',l:'DIZZY',w:'I feel dizzy'},
+    {e:'🥵',l:'TOO HOT',w:'I am too hot'},
+    {e:'🥶',l:'TOO COLD',w:'I am too cold'},
+  ],
+  school:[
+    {e:'✏️',l:'WRITE',w:'I want to write'},
+    {e:'📖',l:'READ',w:'I want to read'},
+    {e:'❓',l:'QUESTION',w:'I have a question'},
+    {e:'🙋',l:'HELP',w:'Can you help me please'},
+    {e:'✅',l:'DONE',w:'I am done'},
+    {e:'🔁',l:'AGAIN',w:'Can you say that again'},
+    {e:'😕',l:'CONFUSED',w:'I do not understand'},
+    {e:'💻',l:'COMPUTER',w:'I want to use the computer'},
+    {e:'🎨',l:'ART',w:'I want to do art'},
+    {e:'🏃',l:'BREAK',w:'I need a movement break'},
+    {e:'👏',l:'GREAT',w:'That is great'},
+    {e:'🏠',l:'HOME',w:'I want to go home'},
+  ],
+  social:[
+    {e:'❤️',l:'LOVE YOU',w:'I love you'},
+    {e:'🤝',l:'FRIEND',w:'You are my friend'},
+    {e:'🙌',l:'GREAT JOB',w:'Great job'},
+    {e:'🎉',l:'CELEBRATE',w:'Let us celebrate'},
+    {e:'🍕',l:'EAT TOGETHER',w:'Let us eat together'},
+    {e:'🎮',l:'PLAY',w:'Let us play'},
+    {e:'🤣',l:'FUNNY',w:'That is funny'},
+    {e:'🤫',l:'QUIET',w:'Please be quiet'},
+    {e:'🤝',l:'SORRY',w:'I am sorry'},
+    {e:'🤲',l:'FORGIVE',w:'I forgive you'},
+    {e:'📱',l:'PHONE',w:'I want to use the phone'},
+    {e:'😴',l:'SLEEP',w:'I want to sleep'},
+  ],
+};
+let currentCat='basic';
 let message='';
-function addWord(w){message+=(message?'. ':'')+w;document.getElementById('speak-display').textContent=message;if(ttsOn) speak(w);}
+
+function showCat(cat,el){
+  currentCat=cat;
+  document.querySelectorAll('.comm-cat').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  renderSpeak();
+}
+function renderSpeak(){
+  const grid=document.getElementById('speak-grid');
+  grid.innerHTML='';
+  CATS[currentCat].forEach(b=>{
+    const d=document.createElement('div');
+    d.className='speak-btn';
+    d.innerHTML=`${b.e}<span class="sb-label">${b.l}</span>`;
+    d.onclick=()=>addWord(b.w);
+    grid.appendChild(d);
+  });
+}
+function addWord(w){message+=(message?'. ':'')+w;document.getElementById('speak-display').textContent=message;speak(w);}
 function sayMessage(){if(message) speak(message);}
 function clearMessage(){message='';document.getElementById('speak-display').textContent='Tap buttons below to build a message...';}
 function addCustomWord(){const w=document.getElementById('custom-word').value.trim();if(!w)return;addWord(w);document.getElementById('custom-word').value='';}
 document.getElementById('custom-word').addEventListener('keydown',e=>{if(e.key==='Enter') addCustomWord();});
+renderSpeak();
 
-// Reminders
+// ── DAILY SCHEDULE ──
+const DEFAULT_SCHED=[
+  {icon:'🌅',name:'Wake up',time:'🌅 MORNING',done:false},
+  {icon:'🍳',name:'Eat breakfast',time:'🌅 MORNING',done:false},
+  {icon:'💊',name:'Take medicine',time:'🌅 MORNING',done:false},
+  {icon:'🦷',name:'Brush teeth',time:'🌅 MORNING',done:false},
+  {icon:'☀️',name:'School or activity',time:'☀️ AFTERNOON',done:false},
+  {icon:'🍽️',name:'Eat lunch',time:'☀️ AFTERNOON',done:false},
+  {icon:'🌙',name:'Eat dinner',time:'🌙 EVENING',done:false},
+  {icon:'🛁',name:'Bath or shower',time:'🌙 EVENING',done:false},
+  {icon:'📖',name:'Quiet time',time:'🌚 NIGHT',done:false},
+  {icon:'😴',name:'Go to sleep',time:'🌚 NIGHT',done:false},
+];
+let schedTasks=JSON.parse(localStorage.getItem('oc-sched')||'null')||DEFAULT_SCHED.map(t=>({...t}));
+
+function renderSched(){
+  const grid=document.getElementById('schedule-grid');grid.innerHTML='';
+  schedTasks.forEach((t,i)=>{
+    const d=document.createElement('div');
+    d.className='sched-slot'+(t.done?' done':'');
+    d.innerHTML=`<div class="ss-time">${t.time}</div><div class="ss-icon">${t.icon}</div><div class="ss-name">${t.name}</div>`;
+    d.onclick=()=>{t.done=!t.done;saveSched();renderSched();if(t.done) speak(t.name+' done! Great job!');};
+    grid.appendChild(d);
+  });
+}
+function saveSched(){localStorage.setItem('oc-sched',JSON.stringify(schedTasks));}
+function addSchedTask(){
+  const name=document.getElementById('sched-name').value.trim();
+  const time=document.getElementById('sched-time').value;
+  const icon=document.getElementById('sched-icon').value.trim()||'⭐';
+  if(!name)return;
+  schedTasks.push({icon,name,time,done:false});
+  saveSched();renderSched();
+  document.getElementById('sched-name').value='';document.getElementById('sched-icon').value='';
+}
+renderSched();
+
+// ── REMINDERS ──
 let reminders=JSON.parse(localStorage.getItem('oc-reminders')||'[]');
 function renderReminders(){
   const el=document.getElementById('reminders-list');el.innerHTML='';
   reminders.forEach((r,i)=>{
     const div=document.createElement('div');div.className='reminder-item';
-    div.innerHTML=`<span class="ri-icon">⏰</span><span class="ri-text">${r.text}</span><span class="ri-time">${r.time||'NO TIME'}</span><button class="ri-del" onclick="delReminder(${i})">✕</button>`;
+    div.innerHTML=`<span class="ri-icon">⏰</span><span class="ri-text">${r.text}</span><span class="ri-time">${r.time||'NO TIME'} · ${(r.repeat||'once').toUpperCase()}</span><button class="ri-del" onclick="delReminder(${i})">✕</button>`;
     el.appendChild(div);
   });
 }
 function addReminder(){
   const text=document.getElementById('r-text').value.trim();
   const time=document.getElementById('r-time').value;
+  const repeat=document.getElementById('r-repeat').value;
   if(!text)return;
-  reminders.push({text,time});
+  reminders.push({text,time,repeat});
   localStorage.setItem('oc-reminders',JSON.stringify(reminders));
   document.getElementById('r-text').value='';document.getElementById('r-time').value='';
-  renderReminders();
-  speak('Reminder added: '+text);
+  renderReminders();speak('Reminder added: '+text);
 }
 function delReminder(i){reminders.splice(i,1);localStorage.setItem('oc-reminders',JSON.stringify(reminders));renderReminders();}
 renderReminders();
-
-// Check reminders every minute
 function checkReminders(){
   const now=new Date();
   const hhmm=now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
-  reminders.forEach(r=>{if(r.time===hhmm) speak('Reminder: '+r.text);});
+  const day=now.getDay();
+  reminders.forEach(r=>{
+    if(r.time!==hhmm) return;
+    if(r.repeat==='weekday'&&(day===0||day===6)) return;
+    speak('Reminder: '+r.text);
+  });
 }
 setInterval(checkReminders,60000);
 
-// Mood
+// ── MOOD ──
 const MOOD_MSGS={
-  happy:'You are feeling happy! That is wonderful. Keep smiling! 😊',
-  sad:'It is okay to feel sad. You are not alone. Take a deep breath. 💙',
-  angry:'Feeling angry is okay. Try to breathe slowly in and out. You are safe. 💪',
-  anxious:'You are safe. Everything will be okay. Try breathing slowly. 💜',
-  tired:'Rest is important. It is okay to take a break and relax. 😴',
-  pain:'I am sorry you are in pain. Please tell someone who can help. 🧡',
-  calm:'You feel calm. That is great. Keep enjoying this peaceful moment. 🌿',
-  excited:'You are excited! That energy is amazing. Enjoy it! 🌟',
+  happy:'You are feeling happy! That is wonderful. Keep smiling!',
+  sad:'It is okay to feel sad. You are not alone. Take a deep breath.',
+  angry:'Feeling angry is okay. Try to breathe slowly in and out. You are safe.',
+  anxious:'You are safe. Everything will be okay. Try breathing slowly.',
+  tired:'Rest is important. It is okay to take a break and relax.',
+  pain:'I am sorry you are in pain. Please tell someone who can help.',
+  calm:'You feel calm. That is great. Keep enjoying this peaceful moment.',
+  excited:'You are excited! That energy is amazing. Enjoy it!',
 };
 function setMood(mood,color){
-  document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('sel'));
+  document.querySelectorAll('.mood-btn').forEach(b=>{b.classList.remove('sel');b.style.borderColor='';});
   event.currentTarget.classList.add('sel');
   event.currentTarget.style.borderColor=color;
   const msg=MOOD_MSGS[mood];
-  document.getElementById('mood-msg').textContent=msg;
-  document.getElementById('mood-msg').style.borderLeft='3px solid '+color;
+  const el=document.getElementById('mood-msg');
+  el.textContent=msg;el.style.borderLeft='3px solid '+color;
   speak(msg);
 }
 
-// Hover-to-speak for resource cards
-if(ttsOn){
-  document.querySelectorAll('.res-card').forEach(c=>{
-    c.addEventListener('mouseenter',()=>speak(c.querySelector('.rc-name').textContent+'. '+c.querySelector('.rc-desc').textContent));
-  });
+// ── BREATHING ──
+let breatheTimer=null;
+function startBreathe(){
+  document.getElementById('breathe-box').style.display='block';
+  document.getElementById('breathe-btn').style.display='none';
+  runBreathe();
+}
+function runBreathe(){
+  const c=document.getElementById('breathe-circle');
+  const l=document.getElementById('breathe-label');
+  c.style.transform='scale(1.6)';c.style.borderColor='#00cc88';c.textContent='BREATHE IN';
+  l.textContent='Breathe in... 4 seconds';
+  speak('Breathe in');
+  breatheTimer=setTimeout(()=>{
+    c.style.transform='scale(1)';c.style.borderColor='#4488ff';c.textContent='HOLD';
+    l.textContent='Hold... 4 seconds';
+    breatheTimer=setTimeout(()=>{
+      c.style.transform='scale(0.8)';c.style.borderColor='#ff88cc';c.textContent='BREATHE OUT';
+      l.textContent='Breathe out... 4 seconds';
+      speak('Breathe out');
+      breatheTimer=setTimeout(()=>{if(breatheTimer!==null) runBreathe();},4000);
+    },4000);
+  },4000);
+}
+function stopBreathe(){
+  clearTimeout(breatheTimer);breatheTimer=null;
+  document.getElementById('breathe-box').style.display='none';
+  document.getElementById('breathe-btn').style.display='block';
 }
 
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t) t.scrollIntoView({behavior:'smooth'});});
-});
+// ── MINI GAMES ──
+function switchGame(name,el){
+  document.querySelectorAll('.mg-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.minigame-panel').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('game-'+name).classList.add('active');
+}
+
+// Memory Match
+const MEM_EMOJIS=['🐶','🐱','🐭','🐹','🐰','🐻','🦊','🐸'];
+let memCards=[],memFlipped=[],memMoves=0,memMatched=0;
+function initMemory(){
+  memFlipped=[];memMoves=0;memMatched=0;
+  document.getElementById('mem-status').textContent='Match all the pairs! Moves: 0';
+  const pairs=[...MEM_EMOJIS,...MEM_EMOJIS].sort(()=>Math.random()-0.5);
+  memCards=pairs;
+  const grid=document.getElementById('memory-grid');grid.innerHTML='';
+  pairs.forEach((emoji,i)=>{
+    const c=document.createElement('div');c.className='mem-card';c.dataset.i=i;c.dataset.emoji=emoji;
+    c.textContent='?';c.onclick=()=>flipCard(c);grid.appendChild(c);
+  });
+}
+function flipCard(c){
+  if(c.classList.contains('matched')||c.classList.contains('flipped')||memFlipped.length===2) return;
+  c.classList.add('flipped');c.textContent=c.dataset.emoji;
+  memFlipped.push(c);
+  if(memFlipped.length===2){
+    memMoves++;
+    document.getElementById('mem-status').textContent='Match all the pairs! Moves: '+memMoves;
+    if(memFlipped[0].dataset.emoji===memFlipped[1].dataset.emoji){
+      memFlipped.forEach(x=>x.classList.add('matched'));
+      memFlipped=[];memMatched++;
+      if(memMatched===8){speak('You won! Great job! All pairs matched in '+memMoves+' moves!');}
+    } else {
+      const tmp=memFlipped.slice();
+      memFlipped=[];
+      setTimeout(()=>{tmp.forEach(x=>{x.classList.remove('flipped');x.textContent='?';});},900);
+    }
+  }
+}
+initMemory();
+
+// Color Tap
+const COLORS=[
+  {name:'RED',hex:'#ff4455'},{name:'BLUE',hex:'#4488ff'},{name:'GREEN',hex:'#00cc88'},
+  {name:'YELLOW',hex:'#ffcc00'},{name:'PURPLE',hex:'#aa44ff'},{name:'PINK',hex:'#ff88cc'},
+];
+let colorScore=0,colorBest=parseInt(localStorage.getItem('oc-color-best')||'0'),colorTarget='',colorRunning=false,colorInterval=null,colorTime=0;
+document.getElementById('color-best').textContent=colorBest;
+function buildColorGrid(){
+  const grid=document.getElementById('color-grid');grid.innerHTML='';
+  COLORS.forEach(c=>{
+    const b=document.createElement('button');b.className='col-btn';b.style.background=c.hex;b.textContent=c.name;
+    b.onclick=()=>{if(!colorRunning)return;if(c.name===colorTarget){colorScore++;document.getElementById('color-score').textContent=colorScore;nextColor();speak('Correct!');}else{speak('Try again');}}
+    grid.appendChild(b);
+  });
+}
+function nextColor(){colorTarget=COLORS[Math.floor(Math.random()*COLORS.length)].name;document.getElementById('color-prompt').textContent='TAP: '+colorTarget;}
+function startColor(){
+  if(colorRunning)return;
+  colorRunning=true;colorScore=0;colorTime=10;
+  document.getElementById('color-score').textContent=0;
+  document.getElementById('color-start').style.display='none';
+  buildColorGrid();nextColor();
+  colorInterval=setInterval(()=>{
+    colorTime--;document.getElementById('color-timer').textContent=colorTime;
+    if(colorTime<=0){
+      clearInterval(colorInterval);colorRunning=false;
+      document.getElementById('color-prompt').textContent='Time is up! Score: '+colorScore;
+      document.getElementById('color-start').style.display='block';
+      if(colorScore>colorBest){colorBest=colorScore;localStorage.setItem('oc-color-best',colorBest);document.getElementById('color-best').textContent=colorBest;}
+      speak('Time is up! Your score is '+colorScore);
+    }
+  },1000);
+}
+buildColorGrid();
+
+// Word Match
+const WORD_PAIRS=[
+  {q:'Which picture shows a DOG?',a:'🐶',opts:['🐶','🐱','🐦','🐟']},
+  {q:'Which picture shows FOOD?',a:'🍕',opts:['🍕','🚗','✏️','🌍']},
+  {q:'Which picture shows the SUN?',a:'☀️',opts:['🌙','⭐','☀️','❄️']},
+  {q:'Which picture shows a HOUSE?',a:'🏠',opts:['🏠','🚀','🎸','🌺']},
+  {q:'Which picture shows WATER?',a:'💧',opts:['🔥','💧','🌪️','⚡']},
+  {q:'Which picture shows a BOOK?',a:'📚',opts:['📱','📚','🎮','🎨']},
+  {q:'Which picture shows MUSIC?',a:'🎵',opts:['🎵','🏀','🎃','🚂']},
+  {q:'Which picture shows a TREE?',a:'🌳',opts:['🌳','🏔️','🌊','🏜️']},
+];
+let wordScore=0,wordBest=parseInt(localStorage.getItem('oc-word-best')||'0'),wordQ=null;
+document.getElementById('word-best').textContent=wordBest;
+function startWord(){
+  wordScore=0;document.getElementById('word-score').textContent=0;
+  document.getElementById('word-start').style.display='none';
+  nextWord();
+}
+function nextWord(){
+  wordQ=WORD_PAIRS[Math.floor(Math.random()*WORD_PAIRS.length)];
+  document.getElementById('word-question').textContent=wordQ.q;
+  const grid=document.getElementById('word-grid');grid.innerHTML='';
+  [...wordQ.opts].sort(()=>Math.random()-0.5).forEach(opt=>{
+    const b=document.createElement('button');b.className='word-btn';b.textContent=opt;
+    b.onclick=()=>{
+      document.querySelectorAll('.word-btn').forEach(x=>x.onclick=null);
+      if(opt===wordQ.a){
+        b.classList.add('correct');wordScore++;document.getElementById('word-score').textContent=wordScore;
+        if(wordScore>wordBest){wordBest=wordScore;localStorage.setItem('oc-word-best',wordBest);document.getElementById('word-best').textContent=wordBest;}
+        speak('Correct!');setTimeout(nextWord,800);
+      } else {
+        b.classList.add('wrong');
+        document.querySelectorAll('.word-btn').forEach(x=>{if(x.textContent===wordQ.a) x.classList.add('correct');});
+        speak('Wrong. The answer was '+wordQ.a);
+        setTimeout(()=>{document.getElementById('word-start').style.display='block';document.getElementById('word-question').textContent='Game over! Score: '+wordScore;grid.innerHTML='';},1200);
+      }
+    };
+    grid.appendChild(b);
+  });
+}
 </script>
 </body>
 </html>
