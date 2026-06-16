@@ -6,6 +6,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="OVO Cares">
 <meta name="theme-color" content="#0a0a2a">
+<meta property="og:title" content="OVO Cares">
+<meta property="og:description" content="A free app to help disabled people communicate, stay organized, and find support. Made with love by Oliver Vo.">
+<meta property="og:image" content="https://oliveryvo-cmd.github.io/ovocares/logo.svg">
+<meta property="og:url" content="https://oliveryvo-cmd.github.io/ovocares/">
+<link rel="icon" type="image/svg+xml" href="logo.svg">
 <title>OVO Cares</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -164,14 +169,14 @@ footer{padding:40px 20px;text-align:center;border-top:1px solid #ffffff11;font-s
 <body>
 
 <div id="splash">
-  <div id="sp-heart">💙</div>
+  <img src="logo.svg" id="sp-logo" style="width:160px;height:160px;animation:heartbeat 1.2s ease infinite;margin-bottom:8px;" alt="OVO Cares logo">
   <div id="sp-name">OVO CARES</div>
   <div id="sp-sub">HELPING EVERYONE</div>
 </div>
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">OVO <span>CARES</span></div>
+  <div class="nav-logo" style="display:flex;align-items:center;gap:8px;"><img src="logo.svg" style="width:28px;height:28px;border-radius:6px;" alt="">OVO <span>CARES</span></div>
   <a class="nav-link" href="#sos-bar">🆘 SOS</a>
   <a class="nav-link" href="#communicate">💬</a>
   <a class="nav-link" href="#schedule">📅</a>
@@ -203,6 +208,7 @@ footer{padding:40px 20px;text-align:center;border-top:1px solid #ffffff11;font-s
 
 <!-- HERO -->
 <section id="hero">
+  <img src="logo.svg" style="width:120px;height:120px;margin-bottom:16px;filter:drop-shadow(0 0 24px #4488ff66);" alt="OVO Cares">
   <h1>OVO CARES</h1>
   <p>A free app to help disabled people communicate, stay organized, have fun, and find support. Made with ❤️ by Oliver Vo.</p>
   <a href="#communicate" class="hero-btn">GET STARTED</a>
