@@ -1,0 +1,13 @@
+{
+  "name": "OVO Cares",
+  "short_name": "OVO Cares",
+  "description": "A free app to help disabled people communicate, stay organized, and find support.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a2a",
+  "theme_color": "#4488ff",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

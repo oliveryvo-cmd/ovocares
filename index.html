@@ -11,6 +11,7 @@
 <meta property="og:image" content="https://oliveryvo-cmd.github.io/ovocares/logo.svg">
 <meta property="og:url" content="https://oliveryvo-cmd.github.io/ovocares/">
 <link rel="icon" type="image/svg+xml" href="logo.svg">
+<link rel="manifest" href="manifest.json">
 <title>OVO Cares</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -189,6 +190,7 @@ footer{padding:40px 20px;text-align:center;border-top:1px solid #ffffff11;font-s
     <button class="font-btn" onclick="setFont(1.2)" style="font-size:0.9rem;">A+</button>
     <button class="font-btn" onclick="setFont(1.5)" style="font-size:1.1rem;">A++</button>
   </div>
+  <button id="lang-toggle" onclick="toggleLang()" style="padding:6px 12px;background:#ffcc0022;border:1px solid #ffcc0066;color:#ffcc00;font-size:0.7rem;font-weight:700;border-radius:4px;cursor:pointer;letter-spacing:2px;">🌐 EN</button>
   <button id="tts-toggle" onclick="toggleTTS()" class="on">🔊 SPEAK</button>
 </nav>
 
@@ -227,11 +229,12 @@ footer{padding:40px 20px;text-align:center;border-top:1px solid #ffffff11;font-s
   </div>
   <div id="speak-display">Tap buttons below to build a message...</div>
   <div class="speak-grid" id="speak-grid"></div>
+  <div id="saved-phrases-row" style="margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap;min-height:0;"></div>
   <div id="speak-controls">
     <button class="sc-btn" id="say-btn" onclick="sayMessage()">🔊 SAY IT</button>
     <button class="sc-btn" id="clear-btn" onclick="clearMessage()">✕ CLEAR</button>
-    <input class="custom-word" id="custom-word" placeholder="Type a word..." />
-    <button id="add-word-btn" onclick="addCustomWord()">+ ADD</button>
+    <input class="custom-word" id="custom-word" placeholder="Type a phrase to save..." />
+    <button id="add-word-btn" onclick="addCustomWord()">+ SAVE</button>
   </div>
 </div>
 
@@ -587,10 +590,121 @@ function showCat(cat,el){
   el.classList.add('active');
   renderSpeak();
 }
+// Spanish categories
+const CATS_ES={
+  basic:[
+    {e:'👋',l:'HOLA',w:'Hola'},
+    {e:'🆘',l:'AYÚDAME',w:'Ayúdame'},
+    {e:'✅',l:'SÍ',w:'Sí'},
+    {e:'❌',l:'NO',w:'No'},
+    {e:'🙏',l:'GRACIAS',w:'Gracias'},
+    {e:'🤲',l:'POR FAVOR',w:'Por favor'},
+    {e:'⏸️',l:'DESCANSO',w:'Necesito un descanso'},
+    {e:'📞',l:'LLAMAR',w:'Llama a alguien'},
+    {e:'🚽',l:'BAÑO',w:'Baño'},
+    {e:'👍',l:'BIEN',w:'Está bien'},
+    {e:'👈',l:'VEN',w:'Ven aquí por favor'},
+    {e:'✋',l:'PARA',w:'Para'},
+  ],
+  feelings:[
+    {e:'😊',l:'FELIZ',w:'Estoy feliz'},
+    {e:'😢',l:'TRISTE',w:'Estoy triste'},
+    {e:'😠',l:'ENOJADO',w:'Estoy enojado'},
+    {e:'😰',l:'ANSIOSO',w:'Me siento ansioso'},
+    {e:'😴',l:'CANSADO',w:'Estoy cansado'},
+    {e:'😣',l:'DOLOR',w:'Tengo dolor'},
+    {e:'😌',l:'TRANQUILO',w:'Me siento tranquilo'},
+    {e:'🤩',l:'EMOCIONADO',w:'Estoy emocionado'},
+    {e:'😨',l:'ASUSTADO',w:'Tengo miedo'},
+    {e:'🥱',l:'ABURRIDO',w:'Estoy aburrido'},
+    {e:'🤗',l:'AMADO',w:'Me siento amado'},
+    {e:'😤',l:'FRUSTRADO',w:'Estoy frustrado'},
+  ],
+  medical:[
+    {e:'💊',l:'MEDICINA',w:'Necesito mi medicina'},
+    {e:'🤕',l:'DOLOR CABEZA',w:'Tengo dolor de cabeza'},
+    {e:'🤢',l:'NÁUSEAS',w:'Me siento mal'},
+    {e:'😤',l:'RESPIRAR',w:'Tengo dificultad para respirar'},
+    {e:'🩺',l:'MÉDICO',w:'Necesito un médico'},
+    {e:'🏥',l:'HOSPITAL',w:'Llévame al hospital'},
+    {e:'💉',l:'INYECCIÓN',w:'Necesito una inyección'},
+    {e:'🩹',l:'HERIDA',w:'Tengo una herida'},
+    {e:'🫀',l:'PECHO',w:'Tengo dolor en el pecho'},
+    {e:'😵',l:'MAREADO',w:'Me siento mareado'},
+    {e:'🥵',l:'CALOR',w:'Tengo mucho calor'},
+    {e:'🥶',l:'FRÍO',w:'Tengo mucho frío'},
+  ],
+  school:[
+    {e:'✏️',l:'ESCRIBIR',w:'Quiero escribir'},
+    {e:'📖',l:'LEER',w:'Quiero leer'},
+    {e:'❓',l:'PREGUNTA',w:'Tengo una pregunta'},
+    {e:'🙋',l:'AYUDA',w:'¿Me puedes ayudar?'},
+    {e:'✅',l:'LISTO',w:'Ya terminé'},
+    {e:'🔁',l:'OTRA VEZ',w:'¿Lo puedes repetir?'},
+    {e:'😕',l:'CONFUNDIDO',w:'No entiendo'},
+    {e:'💻',l:'COMPUTADORA',w:'Quiero usar la computadora'},
+    {e:'🎨',l:'ARTE',w:'Quiero hacer arte'},
+    {e:'🏃',l:'DESCANSO',w:'Necesito moverme'},
+    {e:'👏',l:'GENIAL',w:'Eso es genial'},
+    {e:'🏠',l:'CASA',w:'Quiero ir a casa'},
+  ],
+  social:[
+    {e:'❤️',l:'TE QUIERO',w:'Te quiero'},
+    {e:'🤝',l:'AMIGO',w:'Eres mi amigo'},
+    {e:'🙌',l:'BIEN HECHO',w:'Bien hecho'},
+    {e:'🎉',l:'CELEBRAR',w:'Vamos a celebrar'},
+    {e:'🍕',l:'COMER',w:'Vamos a comer juntos'},
+    {e:'🎮',l:'JUGAR',w:'Vamos a jugar'},
+    {e:'🤣',l:'GRACIOSO',w:'Eso es gracioso'},
+    {e:'🤫',l:'SILENCIO',w:'Por favor guarda silencio'},
+    {e:'🤝',l:'LO SIENTO',w:'Lo siento'},
+    {e:'🤲',l:'PERDONAR',w:'Te perdono'},
+    {e:'📱',l:'TELÉFONO',w:'Quiero usar el teléfono'},
+    {e:'😴',l:'DORMIR',w:'Quiero dormir'},
+  ],
+};
+
+let lang='en';
+function toggleLang(){
+  lang=lang==='en'?'es':'en';
+  document.getElementById('lang-toggle').textContent=lang==='en'?'🌐 EN':'🌐 ES';
+  renderSpeak();
+  speak(lang==='en'?'English selected':'Español seleccionado');
+}
+
+function addWord(w){message+=(message?'. ':'')+w;document.getElementById('speak-display').textContent=message;speak(w);}
+function sayMessage(){if(message) speak(message);}
+function clearMessage(){message='';document.getElementById('speak-display').textContent=lang==='en'?'Tap buttons below to build a message...':'Toca los botones para crear un mensaje...';}
+
+// Saved custom phrases (permanent)
+let savedPhrases=JSON.parse(localStorage.getItem('oc-phrases')||'[]');
+function renderSavedPhrases(){
+  const row=document.getElementById('saved-phrases-row');
+  row.innerHTML='';
+  savedPhrases.forEach((p,i)=>{
+    const b=document.createElement('button');
+    b.style.cssText='padding:8px 14px;background:#aa44ff22;border:1px solid #aa44ff55;border-radius:8px;color:#fff;font-size:0.75rem;cursor:pointer;display:flex;align-items:center;gap:6px;';
+    b.innerHTML=`${p} <span style="color:#ff445566;font-size:0.7rem;" onclick="event.stopPropagation();deletePhrase(${i})">✕</span>`;
+    b.onclick=()=>addWord(p);
+    row.appendChild(b);
+  });
+}
+function deletePhrase(i){savedPhrases.splice(i,1);localStorage.setItem('oc-phrases',JSON.stringify(savedPhrases));renderSavedPhrases();}
+function addCustomWord(){
+  const w=document.getElementById('custom-word').value.trim();
+  if(!w)return;
+  if(!savedPhrases.includes(w)){savedPhrases.push(w);localStorage.setItem('oc-phrases',JSON.stringify(savedPhrases));renderSavedPhrases();}
+  addWord(w);
+  document.getElementById('custom-word').value='';
+}
+document.getElementById('custom-word').addEventListener('keydown',e=>{if(e.key==='Enter') addCustomWord();});
+renderSavedPhrases();
+
 function renderSpeak(){
   const grid=document.getElementById('speak-grid');
   grid.innerHTML='';
-  CATS[currentCat].forEach(b=>{
+  const cats=lang==='en'?CATS:CATS_ES;
+  (cats[currentCat]||cats['basic']).forEach(b=>{
     const d=document.createElement('div');
     d.className='speak-btn';
     d.innerHTML=`${b.e}<span class="sb-label">${b.l}</span>`;
@@ -598,11 +712,6 @@ function renderSpeak(){
     grid.appendChild(d);
   });
 }
-function addWord(w){message+=(message?'. ':'')+w;document.getElementById('speak-display').textContent=message;speak(w);}
-function sayMessage(){if(message) speak(message);}
-function clearMessage(){message='';document.getElementById('speak-display').textContent='Tap buttons below to build a message...';}
-function addCustomWord(){const w=document.getElementById('custom-word').value.trim();if(!w)return;addWord(w);document.getElementById('custom-word').value='';}
-document.getElementById('custom-word').addEventListener('keydown',e=>{if(e.key==='Enter') addCustomWord();});
 renderSpeak();
 
 // ── DAILY SCHEDULE ──
@@ -844,6 +953,9 @@ function nextWord(){
     grid.appendChild(b);
   });
 }
+
+// ── PWA SERVICE WORKER ──
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{});}
 </script>
 </body>
 </html>
