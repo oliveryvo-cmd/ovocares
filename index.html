@@ -362,56 +362,25 @@ footer{padding:40px 20px;text-align:center;border-top:1px solid #ffffff11;font-s
 <div class="section" id="resources">
   <div class="sec-title" style="color:#00cc88;">📋 RESOURCES</div>
   <div class="sec-line" style="background:#00cc88;"></div>
-  <div class="res-grid">
-    <div class="res-card">
-      <div class="rc-icon">🆘</div>
-      <div class="rc-name">EMERGENCY</div>
-      <div class="rc-desc">US Emergency services — call 911 for police, fire, or medical emergencies.</div>
-      <a href="tel:911">CALL 911</a>
-    </div>
-    <div class="res-card">
-      <div class="rc-icon">💬</div>
-      <div class="rc-name">CRISIS LINE</div>
-      <div class="rc-desc">Free mental health support, 24/7. Call or text 988 (US Suicide & Crisis Lifeline).</div>
-      <a href="tel:988">CALL 988</a>
-    </div>
-    <div class="res-card">
-      <div class="rc-icon">♿</div>
-      <div class="rc-name">ADA HELP</div>
-      <div class="rc-desc">Americans with Disabilities Act info and disability rights support.</div>
-      <a href="https://www.ada.gov" target="_blank">VISIT ADA.GOV</a>
-    </div>
-    <div class="res-card">
-      <div class="rc-icon">🧠</div>
-      <div class="rc-name">AUTISM SPEAKS</div>
-      <div class="rc-desc">Resources, tools and support for people with autism and their families.</div>
-      <a href="https://www.autismspeaks.org" target="_blank">VISIT SITE</a>
-    </div>
-    <div class="res-card">
-      <div class="rc-icon">👂</div>
-      <div class="rc-name">HEARING LOSS</div>
-      <div class="rc-desc">Support for people with hearing loss — resources, community, and tools.</div>
-      <a href="https://www.hearingloss.org" target="_blank">VISIT SITE</a>
-    </div>
-    <div class="res-card">
-      <div class="rc-icon">👁️</div>
-      <div class="rc-name">VISION SUPPORT</div>
-      <div class="rc-desc">American Foundation for the Blind — resources for people with vision loss.</div>
-      <a href="https://www.afb.org" target="_blank">VISIT AFB.ORG</a>
-    </div>
-    <div class="res-card">
-      <div class="rc-icon">🤝</div>
-      <div class="rc-name">SPECIAL OLYMPICS</div>
-      <div class="rc-desc">Sports, health, and community programs for people with intellectual disabilities.</div>
-      <a href="https://www.specialolympics.org" target="_blank">VISIT SITE</a>
-    </div>
-    <div class="res-card">
-      <div class="rc-icon">🏠</div>
-      <div class="rc-name">DISABILITY.GOV</div>
-      <div class="rc-desc">Find housing, benefits, employment, and community support programs near you.</div>
-      <a href="https://www.acl.gov" target="_blank">VISIT ACL.GOV</a>
-    </div>
+  <p style="text-align:center;font-size:0.7rem;letter-spacing:2px;color:#888;margin-bottom:20px;">Find help, support, and services. Tap a card to learn more.</p>
+
+  <!-- Search + Filter -->
+  <div style="max-width:700px;margin:0 auto 24px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+    <input id="res-search" placeholder="🔍 Search resources..." style="flex:1;min-width:180px;padding:10px 14px;background:#ffffff08;border:1px solid #ffffff22;border-radius:8px;color:#fff;font-size:0.85rem;outline:none;" oninput="filterRes()">
   </div>
+  <div class="comm-cats" style="margin-bottom:24px;" id="res-cat-bar">
+    <div class="comm-cat active" onclick="setResCat('all',this)">ALL</div>
+    <div class="comm-cat" onclick="setResCat('emergency',this)">🆘 EMERGENCY</div>
+    <div class="comm-cat" onclick="setResCat('mental',this)">🧠 MENTAL HEALTH</div>
+    <div class="comm-cat" onclick="setResCat('physical',this)">♿ PHYSICAL</div>
+    <div class="comm-cat" onclick="setResCat('autism',this)">💙 AUTISM</div>
+    <div class="comm-cat" onclick="setResCat('learning',this)">📚 LEARNING</div>
+    <div class="comm-cat" onclick="setResCat('sensory',this)">👂 SENSORY</div>
+    <div class="comm-cat" onclick="setResCat('benefits',this)">💰 BENEFITS</div>
+    <div class="comm-cat" onclick="setResCat('kids',this)">👶 KIDS</div>
+  </div>
+
+  <div class="res-grid" id="res-grid"></div>
 </div>
 
 <footer>
@@ -420,6 +389,96 @@ footer{padding:40px 20px;text-align:center;border-top:1px solid #ffffff11;font-s
 </footer>
 
 <script>
+// ── RESOURCES ──
+const RESOURCES=[
+  // EMERGENCY
+  {cat:'emergency',icon:'🆘',name:'EMERGENCY 911',desc:'US Emergency services. Call 911 for police, fire, or medical help right now.',link:'tel:911',btn:'CALL 911'},
+  {cat:'emergency',icon:'💬',name:'CRISIS LINE 988',desc:'Free 24/7 mental health support. Call or text 988 — Suicide & Crisis Lifeline.',link:'tel:988',btn:'CALL 988'},
+  {cat:'emergency',icon:'📱',name:'CRISIS TEXT LINE',desc:'Text HOME to 741741 to chat with a trained crisis counselor, free, 24/7.',link:'sms:741741',btn:'TEXT 741741'},
+  {cat:'emergency',icon:'🏥',name:'FIND AN ER',desc:'Find the nearest emergency room or urgent care center near you.',link:'https://www.google.com/maps/search/emergency+room+near+me',btn:'FIND NEAR ME'},
+
+  // MENTAL HEALTH
+  {cat:'mental',icon:'🧠',name:'NAMI HELPLINE',desc:'National Alliance on Mental Illness — free info and support Mon-Fri 10am-10pm ET.',link:'tel:18009506264',btn:'CALL NAMI'},
+  {cat:'mental',icon:'💜',name:'SAMHSA',desc:'Substance Abuse and Mental Health helpline — free, confidential, 24/7.',link:'tel:18006624357',btn:'CALL SAMHSA'},
+  {cat:'mental',icon:'🌿',name:'CALM APP',desc:'Meditation, sleep stories, and breathing exercises for stress and anxiety.',link:'https://www.calm.com',btn:'VISIT SITE'},
+  {cat:'mental',icon:'😌',name:'MINDFULNESS',desc:'Free guided meditations and mental wellness tools from Headspace.',link:'https://www.headspace.com/meditation/guided-meditation',btn:'TRY FREE'},
+  {cat:'mental',icon:'💙',name:'7 CUPS',desc:'Free online chat with trained listeners — no signup needed for emotional support.',link:'https://www.7cups.com',btn:'VISIT SITE'},
+  {cat:'mental',icon:'🤗',name:'THERAPY FOR ALL',desc:'Open Path Collective — affordable therapy sessions ($30-$80) for people in need.',link:'https://openpathcollective.org',btn:'VISIT SITE'},
+
+  // PHYSICAL DISABILITY
+  {cat:'physical',icon:'♿',name:'ADA HELP',desc:'Americans with Disabilities Act — your rights, accessibility rules, and how to file a complaint.',link:'https://www.ada.gov',btn:'VISIT ADA.GOV'},
+  {cat:'physical',icon:'🏛️',name:'ACL / DISABILITY.GOV',desc:'Administration for Community Living — housing, benefits, employment for disabled people.',link:'https://www.acl.gov',btn:'VISIT ACL.GOV'},
+  {cat:'physical',icon:'🤝',name:'SPECIAL OLYMPICS',desc:'Sports, health, and community programs for people with intellectual disabilities.',link:'https://www.specialolympics.org',btn:'VISIT SITE'},
+  {cat:'physical',icon:'💪',name:'UNITED SPINAL',desc:'Support and advocacy for people with spinal cord injuries and disorders.',link:'https://www.unitedspinal.org',btn:'VISIT SITE'},
+  {cat:'physical',icon:'🦽',name:'MOBILITY WORKS',desc:'Wheelchair-accessible vehicles, rentals, and mobility equipment resources.',link:'https://www.mobilityworks.com',btn:'VISIT SITE'},
+  {cat:'physical',icon:'🧰',name:'ABLEDATA',desc:'Huge database of assistive technology products and equipment for disabilities.',link:'https://abledata.acl.gov',btn:'VISIT SITE'},
+
+  // AUTISM
+  {cat:'autism',icon:'🧩',name:'AUTISM SPEAKS',desc:'Resources, tools, and community support for people with autism and their families.',link:'https://www.autismspeaks.org',btn:'VISIT SITE'},
+  {cat:'autism',icon:'💙',name:'AUTISM SOCIETY',desc:'Improving the lives of people with autism through education, advocacy, and community.',link:'https://autismsociety.org',btn:'VISIT SITE'},
+  {cat:'autism',icon:'🌟',name:'AUTISTIC SELF ADVOCACY',desc:'Run by and for autistic people — promoting equal rights and inclusion.',link:'https://autisticadvocacy.org',btn:'VISIT SITE'},
+  {cat:'autism',icon:'🏫',name:'AUTISM CLASSROOM',desc:'Free teaching resources and strategies for supporting autistic students.',link:'https://autismclassroomresources.com',btn:'VISIT SITE'},
+  {cat:'autism',icon:'📱',name:'PROLOQUO2GO',desc:'AAC app that gives a voice to people who have difficulty speaking.',link:'https://www.assistiveware.com/products/proloquo2go',btn:'VISIT SITE'},
+
+  // LEARNING DISABILITIES
+  {cat:'learning',icon:'📚',name:'LEARNING DISABILITIES ASSOC.',desc:'Support for people with dyslexia, ADHD, dyscalculia, and other learning differences.',link:'https://ldaamerica.org',btn:'VISIT SITE'},
+  {cat:'learning',icon:'📖',name:'UNDERSTOOD.ORG',desc:'Resources for kids and adults with learning and thinking differences, including ADHD.',link:'https://www.understood.org',btn:'VISIT SITE'},
+  {cat:'learning',icon:'✏️',name:'DYSLEXIA HELP',desc:'Tools, strategies, and community for people with dyslexia of all ages.',link:'https://dyslexiahelp.umich.edu',btn:'VISIT SITE'},
+  {cat:'learning',icon:'🎧',name:'LEARNING ALLY',desc:'Audiobooks and reading support for students with dyslexia or visual impairments.',link:'https://learningally.org',btn:'VISIT SITE'},
+  {cat:'learning',icon:'🧩',name:'CHADD (ADHD)',desc:'Children and Adults with ADHD — support groups, resources, and expert guidance.',link:'https://chadd.org',btn:'VISIT SITE'},
+
+  // SENSORY
+  {cat:'sensory',icon:'👂',name:'HEARING LOSS ASSOC.',desc:'Support, resources, and community for people with hearing loss.',link:'https://www.hearingloss.org',btn:'VISIT SITE'},
+  {cat:'sensory',icon:'👁️',name:'AMERICAN FOUNDATION FOR BLIND',desc:'Resources, tools, and advocacy for people with vision loss of all kinds.',link:'https://www.afb.org',btn:'VISIT AFB.ORG'},
+  {cat:'sensory',icon:'🦯',name:'NFB — NATIONAL FEDERATION',desc:'The largest organization of blind Americans — Braille, employment, technology support.',link:'https://nfb.org',btn:'VISIT SITE'},
+  {cat:'sensory',icon:'🔇',name:'NAD — DEAF COMMUNITY',desc:'National Association of the Deaf — rights, resources, and community for deaf people.',link:'https://www.nad.org',btn:'VISIT SITE'},
+  {cat:'sensory',icon:'🤲',name:'DEAFBLIND SUPPORT',desc:'Support and advocacy for people who are both deaf and blind.',link:'https://www.nationaldb.org',btn:'VISIT SITE'},
+
+  // BENEFITS & MONEY
+  {cat:'benefits',icon:'💰',name:'SSI / SSDI',desc:'Social Security disability benefits — apply online or find out if you qualify.',link:'https://www.ssa.gov/disability/',btn:'VISIT SSA.GOV'},
+  {cat:'benefits',icon:'🏠',name:'HUD HOUSING',desc:'Find affordable housing, Section 8 vouchers, and accessible homes near you.',link:'https://www.hud.gov/program_offices/public_indian_housing',btn:'VISIT HUD.GOV'},
+  {cat:'benefits',icon:'🍎',name:'SNAP FOOD BENEFITS',desc:'Apply for food assistance through the Supplemental Nutrition Assistance Program.',link:'https://www.fns.usda.gov/snap/recipient/eligibility',btn:'APPLY NOW'},
+  {cat:'benefits',icon:'🏥',name:'MEDICAID',desc:'Free or low-cost health coverage for people with disabilities and low income.',link:'https://www.medicaid.gov',btn:'VISIT SITE'},
+  {cat:'benefits',icon:'💼',name:'VOCATIONAL REHAB',desc:'Job training, placement, and support services for people with disabilities.',link:'https://rsa.ed.gov/about/states',btn:'FIND YOUR STATE'},
+  {cat:'benefits',icon:'📞',name:'BENEFITS HELPLINE',desc:'Free help understanding your disability benefits — call 1-800-828-1120.',link:'tel:18008281120',btn:'CALL NOW'},
+
+  // KIDS & FAMILIES
+  {cat:'kids',icon:'👶',name:'ZERO TO THREE',desc:'Early childhood development resources for families of infants and toddlers with disabilities.',link:'https://www.zerotothree.org',btn:'VISIT SITE'},
+  {cat:'kids',icon:'🏫',name:'IDEA — SPECIAL EDUCATION',desc:'Every disabled child has a right to free public education. Learn about your IEP rights.',link:'https://sites.ed.gov/idea/',btn:'VISIT SITE'},
+  {cat:'kids',icon:'🌟',name:'PARENT TO PARENT USA',desc:'Connects parents of children with disabilities to other parents for peer support.',link:'https://www.p2pusa.org',btn:'VISIT SITE'},
+  {cat:'kids',icon:'🎮',name:'ABLEGAMERS',desc:'Making video games accessible for people with physical disabilities.',link:'https://ablegamers.org',btn:'VISIT SITE'},
+  {cat:'kids',icon:'🎨',name:'VERY SPECIAL ARTS',desc:'Creative arts programs for people with disabilities — music, theater, visual arts.',link:'https://www.kennedy-center.org/education/networks-conferences-and-research/networks/vsa/',btn:'VISIT SITE'},
+  {cat:'kids',icon:'🏊',name:'MIRACLE LEAGUE',desc:'Adaptive sports and baseball for children and adults with disabilities.',link:'https://www.miracleleague.com',btn:'VISIT SITE'},
+];
+
+let resCat='all', resSearch='';
+function setResCat(cat,el){
+  resCat=cat;
+  document.querySelectorAll('#res-cat-bar .comm-cat').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  filterRes();
+}
+function filterRes(){
+  resSearch=(document.getElementById('res-search').value||'').toLowerCase();
+  const grid=document.getElementById('res-grid');
+  grid.innerHTML='';
+  const filtered=RESOURCES.filter(r=>{
+    const catMatch=resCat==='all'||r.cat===resCat;
+    const textMatch=!resSearch||r.name.toLowerCase().includes(resSearch)||r.desc.toLowerCase().includes(resSearch);
+    return catMatch&&textMatch;
+  });
+  if(filtered.length===0){
+    grid.innerHTML='<p style="text-align:center;color:#888;font-size:0.8rem;letter-spacing:2px;padding:40px 0;">No resources found. Try a different search.</p>';
+    return;
+  }
+  filtered.forEach(r=>{
+    const d=document.createElement('div');d.className='res-card';
+    d.innerHTML=`<div class="rc-icon">${r.icon}</div><div class="rc-name">${r.name}</div><div class="rc-desc">${r.desc}</div><a href="${r.link}" target="_blank">${r.btn}</a>`;
+    grid.appendChild(d);
+  });
+}
+filterRes();
+
 // ── SPLASH ──
 setTimeout(()=>{document.getElementById('sp-name').style.opacity='1';document.getElementById('sp-sub').style.opacity='1';},600);
 setTimeout(()=>{const s=document.getElementById('splash');s.style.transition='opacity 0.7s';s.style.opacity='0';setTimeout(()=>s.style.display='none',700);},2400);
