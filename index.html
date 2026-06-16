@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="OVO Cares">
-<meta name="theme-color" content="#0a0a2a">
+<meta name="theme-color" content="#f0f4ff">
 <meta property="og:title" content="OVO Cares">
 <meta property="og:description" content="A free app to help disabled people communicate, stay organized, and find support. Made with love by Oliver Vo.">
 <meta property="og:image" content="https://oliveryvo-cmd.github.io/ovocares/logo.svg">
@@ -191,6 +191,11 @@ footer{padding:40px 20px;text-align:center;border-top:1px solid #ffffff11;font-s
     <button class="font-btn" onclick="setFont(1.5)" style="font-size:1.1rem;">A++</button>
   </div>
   <button id="lang-toggle" onclick="toggleLang()" style="padding:6px 12px;background:#ffcc0022;border:1px solid #ffcc0066;color:#ffcc00;font-size:0.7rem;font-weight:700;border-radius:4px;cursor:pointer;letter-spacing:2px;">🌐 EN</button>
+  <div id="lang-btns" style="display:flex;gap:4px;">
+    <button class="font-btn lang-btn active" onclick="setLang('en',this)">🇺🇸 EN</button>
+    <button class="font-btn lang-btn" onclick="setLang('es',this)">🇪🇸 ES</button>
+    <button class="font-btn lang-btn" onclick="setLang('fr',this)">🇫🇷 FR</button>
+  </div>
   <button id="tts-toggle" onclick="toggleTTS()" class="on">🔊 SPEAK</button>
 </nav>
 
@@ -490,7 +495,7 @@ setTimeout(()=>{const s=document.getElementById('splash');s.style.transition='op
 // ── TTS ──
 let ttsOn=true;
 function toggleTTS(){ttsOn=!ttsOn;const b=document.getElementById('tts-toggle');b.textContent=ttsOn?'🔊 SPEAK':'🔇 MUTED';b.classList.toggle('on',ttsOn);}
-function speak(text){if(!ttsOn||!window.speechSynthesis)return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.rate=0.85;u.pitch=1.05;window.speechSynthesis.speak(u);}
+function speak(text){if(!ttsOn||!window.speechSynthesis)return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.rate=0.85;u.pitch=1.05;u.lang=currentLang==='fr'?'fr-FR':currentLang==='es'?'es-ES':'en-US';window.speechSynthesis.speak(u);}
 
 // ── FONT ──
 function setFont(scale){document.body.style.fontSize=(scale*16)+'px';}
@@ -509,7 +514,17 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
 });
 
 // ── COMMUNICATION CATEGORIES ──
-const CATS={
+let currentLang='en';
+function setLang(lang,el){
+  currentLang=lang;
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  const langNames={en:'English',es:'Español',fr:'Français'};
+  speak(langNames[lang]);
+  renderSpeak();
+}
+
+const CATS_EN={
   basic:[
     {e:'👋',l:'HELLO',w:'Hello'},
     {e:'🆘',l:'HELP ME',w:'Help me'},
@@ -540,6 +555,196 @@ const CATS={
   ],
   medical:[
     {e:'💊',l:'MEDICINE',w:'I need my medicine'},
+    {e:'🤕',l:'HEADACHE',w:'I have a headache'},
+    {e:'🤢',l:'NAUSEA',w:'I feel nauseous'},
+    {e:'😤',l:'BREATHING',w:'I have trouble breathing'},
+    {e:'🩺',l:'DOCTOR',w:'I need a doctor'},
+    {e:'🏥',l:'HOSPITAL',w:'Take me to the hospital'},
+    {e:'💉',l:'INJECTION',w:'I need an injection'},
+    {e:'🩹',l:'WOUND',w:'I have a wound'},
+    {e:'🫀',l:'CHEST PAIN',w:'I have chest pain'},
+    {e:'😵',l:'DIZZY',w:'I feel dizzy'},
+    {e:'🥵',l:'TOO HOT',w:'I am too hot'},
+    {e:'🥶',l:'TOO COLD',w:'I am too cold'},
+  ],
+  school:[
+    {e:'✏️',l:'WRITE',w:'I want to write'},
+    {e:'📖',l:'READ',w:'I want to read'},
+    {e:'❓',l:'QUESTION',w:'I have a question'},
+    {e:'🙋',l:'HELP',w:'Can you help me please'},
+    {e:'✅',l:'DONE',w:'I am done'},
+    {e:'🔁',l:'AGAIN',w:'Can you say that again'},
+    {e:'😕',l:'CONFUSED',w:'I do not understand'},
+    {e:'💻',l:'COMPUTER',w:'I want to use the computer'},
+    {e:'🎨',l:'ART',w:'I want to do art'},
+    {e:'🏃',l:'BREAK',w:'I need a movement break'},
+    {e:'👏',l:'GREAT',w:'That is great'},
+    {e:'🏠',l:'HOME',w:'I want to go home'},
+  ],
+  social:[
+    {e:'❤️',l:'LOVE YOU',w:'I love you'},
+    {e:'🤝',l:'FRIEND',w:'You are my friend'},
+    {e:'🙌',l:'GREAT JOB',w:'Great job'},
+    {e:'🎉',l:'CELEBRATE',w:'Let us celebrate'},
+    {e:'🍕',l:'EAT TOGETHER',w:'Let us eat together'},
+    {e:'🎮',l:'PLAY',w:'Let us play'},
+    {e:'🤣',l:'FUNNY',w:'That is funny'},
+    {e:'🤫',l:'QUIET',w:'Please be quiet'},
+    {e:'🤝',l:'SORRY',w:'I am sorry'},
+    {e:'🤲',l:'FORGIVE',w:'I forgive you'},
+    {e:'📱',l:'PHONE',w:'I want to use the phone'},
+    {e:'😴',l:'SLEEP',w:'I want to sleep'},
+  ],
+};
+
+const CATS_ES={
+  basic:[
+    {e:'👋',l:'HOLA',w:'Hola'},
+    {e:'🆘',l:'AYÚDAME',w:'Ayúdame'},
+    {e:'✅',l:'SÍ',w:'Sí'},
+    {e:'❌',l:'NO',w:'No'},
+    {e:'🙏',l:'GRACIAS',w:'Gracias'},
+    {e:'🤲',l:'POR FAVOR',w:'Por favor'},
+    {e:'⏸️',l:'DESCANSO',w:'Necesito un descanso'},
+    {e:'📞',l:'LLAMAR',w:'Llama a alguien'},
+    {e:'🚽',l:'BAÑO',w:'El baño'},
+    {e:'👍',l:'BIEN',w:'Está bien'},
+    {e:'👈',l:'VEN AQUÍ',w:'Ven aquí por favor'},
+    {e:'✋',l:'PARA',w:'Para'},
+  ],
+  feelings:[
+    {e:'😊',l:'FELIZ',w:'Estoy feliz'},
+    {e:'😢',l:'TRISTE',w:'Estoy triste'},
+    {e:'😠',l:'ENOJADO',w:'Estoy enojado'},
+    {e:'😰',l:'ANSIOSO',w:'Me siento ansioso'},
+    {e:'😴',l:'CANSADO',w:'Estoy cansado'},
+    {e:'😣',l:'DOLOR',w:'Tengo dolor'},
+    {e:'😌',l:'TRANQUILO',w:'Me siento tranquilo'},
+    {e:'🤩',l:'EMOCIONADO',w:'Estoy emocionado'},
+    {e:'😨',l:'ASUSTADO',w:'Tengo miedo'},
+    {e:'🥱',l:'ABURRIDO',w:'Estoy aburrido'},
+    {e:'🤗',l:'AMADO',w:'Me siento amado'},
+    {e:'😤',l:'FRUSTRADO',w:'Estoy frustrado'},
+  ],
+  medical:[
+    {e:'💊',l:'MEDICINA',w:'Necesito mi medicina'},
+    {e:'🤕',l:'CABEZA',w:'Me duele la cabeza'},
+    {e:'🤢',l:'NÁUSEAS',w:'Tengo náuseas'},
+    {e:'😤',l:'RESPIRAR',w:'Tengo dificultad para respirar'},
+    {e:'🩺',l:'DOCTOR',w:'Necesito un doctor'},
+    {e:'🏥',l:'HOSPITAL',w:'Llévame al hospital'},
+    {e:'💉',l:'INYECCIÓN',w:'Necesito una inyección'},
+    {e:'🩹',l:'HERIDA',w:'Tengo una herida'},
+    {e:'🫀',l:'PECHO',w:'Me duele el pecho'},
+    {e:'😵',l:'MAREADO',w:'Me siento mareado'},
+    {e:'🥵',l:'CALOR',w:'Tengo mucho calor'},
+    {e:'🥶',l:'FRÍO',w:'Tengo mucho frío'},
+  ],
+  school:[
+    {e:'✏️',l:'ESCRIBIR',w:'Quiero escribir'},
+    {e:'📖',l:'LEER',w:'Quiero leer'},
+    {e:'❓',l:'PREGUNTA',w:'Tengo una pregunta'},
+    {e:'🙋',l:'AYUDA',w:'¿Puedes ayudarme?'},
+    {e:'✅',l:'LISTO',w:'Ya terminé'},
+    {e:'🔁',l:'OTRA VEZ',w:'¿Puedes repetirlo?'},
+    {e:'😕',l:'CONFUNDIDO',w:'No entiendo'},
+    {e:'💻',l:'COMPUTADORA',w:'Quiero usar la computadora'},
+    {e:'🎨',l:'ARTE',w:'Quiero hacer arte'},
+    {e:'🏃',l:'DESCANSO',w:'Necesito un descanso'},
+    {e:'👏',l:'EXCELENTE',w:'Eso es excelente'},
+    {e:'🏠',l:'CASA',w:'Quiero ir a casa'},
+  ],
+  social:[
+    {e:'❤️',l:'TE AMO',w:'Te amo'},
+    {e:'🤝',l:'AMIGO',w:'Eres mi amigo'},
+    {e:'🙌',l:'BUEN TRABAJO',w:'Buen trabajo'},
+    {e:'🎉',l:'CELEBRAR',w:'Vamos a celebrar'},
+    {e:'🍕',l:'COMER JUNTOS',w:'Vamos a comer juntos'},
+    {e:'🎮',l:'JUGAR',w:'Vamos a jugar'},
+    {e:'🤣',l:'GRACIOSO',w:'Eso es gracioso'},
+    {e:'🤫',l:'SILENCIO',w:'Por favor silencio'},
+    {e:'🤝',l:'LO SIENTO',w:'Lo siento'},
+    {e:'🤲',l:'PERDÓN',w:'Te perdono'},
+    {e:'📱',l:'TELÉFONO',w:'Quiero usar el teléfono'},
+    {e:'😴',l:'DORMIR',w:'Quiero dormir'},
+  ],
+};
+
+const CATS_FR={
+  basic:[
+    {e:'👋',l:'BONJOUR',w:'Bonjour'},
+    {e:'🆘',l:'AIDEZ-MOI',w:'Aidez-moi'},
+    {e:'✅',l:'OUI',w:'Oui'},
+    {e:'❌',l:'NON',w:'Non'},
+    {e:'🙏',l:'MERCI',w:'Merci'},
+    {e:'🤲',l:'S\'IL VOUS PLAÎT',w:'S\'il vous plaît'},
+    {e:'⏸️',l:'PAUSE',w:'J\'ai besoin d\'une pause'},
+    {e:'📞',l:'APPELER',w:'Appelez quelqu\'un'},
+    {e:'🚽',l:'TOILETTES',w:'Les toilettes'},
+    {e:'👍',l:'D\'ACCORD',w:'D\'accord'},
+    {e:'👈',l:'VENEZ ICI',w:'Venez ici s\'il vous plaît'},
+    {e:'✋',l:'ARRÊTEZ',w:'Arrêtez'},
+  ],
+  feelings:[
+    {e:'😊',l:'HEUREUX',w:'Je suis heureux'},
+    {e:'😢',l:'TRISTE',w:'Je suis triste'},
+    {e:'😠',l:'EN COLÈRE',w:'Je suis en colère'},
+    {e:'😰',l:'ANXIEUX',w:'Je me sens anxieux'},
+    {e:'😴',l:'FATIGUÉ',w:'Je suis fatigué'},
+    {e:'😣',l:'DOULEUR',w:'J\'ai mal'},
+    {e:'😌',l:'CALME',w:'Je me sens calme'},
+    {e:'🤩',l:'EXCITÉ',w:'Je suis excité'},
+    {e:'😨',l:'PEUR',w:'J\'ai peur'},
+    {e:'🥱',l:'ENNUYÉ',w:'Je m\'ennuie'},
+    {e:'🤗',l:'AIMÉ',w:'Je me sens aimé'},
+    {e:'😤',l:'FRUSTRÉ',w:'Je suis frustré'},
+  ],
+  medical:[
+    {e:'💊',l:'MÉDICAMENT',w:'J\'ai besoin de mon médicament'},
+    {e:'🤕',l:'MAL DE TÊTE',w:'J\'ai mal à la tête'},
+    {e:'🤢',l:'NAUSÉE',w:'J\'ai la nausée'},
+    {e:'😤',l:'RESPIRER',w:'J\'ai du mal à respirer'},
+    {e:'🩺',l:'MÉDECIN',w:'J\'ai besoin d\'un médecin'},
+    {e:'🏥',l:'HÔPITAL',w:'Emmenez-moi à l\'hôpital'},
+    {e:'💉',l:'INJECTION',w:'J\'ai besoin d\'une injection'},
+    {e:'🩹',l:'BLESSURE',w:'J\'ai une blessure'},
+    {e:'🫀',l:'POITRINE',w:'J\'ai mal à la poitrine'},
+    {e:'😵',l:'ÉTOURDI',w:'Je me sens étourdi'},
+    {e:'🥵',l:'TROP CHAUD',w:'J\'ai trop chaud'},
+    {e:'🥶',l:'TROP FROID',w:'J\'ai trop froid'},
+  ],
+  school:[
+    {e:'✏️',l:'ÉCRIRE',w:'Je veux écrire'},
+    {e:'📖',l:'LIRE',w:'Je veux lire'},
+    {e:'❓',l:'QUESTION',w:'J\'ai une question'},
+    {e:'🙋',l:'AIDE',w:'Pouvez-vous m\'aider'},
+    {e:'✅',l:'FINI',w:'J\'ai terminé'},
+    {e:'🔁',l:'ENCORE',w:'Pouvez-vous répéter'},
+    {e:'😕',l:'CONFUS',w:'Je ne comprends pas'},
+    {e:'💻',l:'ORDINATEUR',w:'Je veux utiliser l\'ordinateur'},
+    {e:'🎨',l:'ART',w:'Je veux faire de l\'art'},
+    {e:'🏃',l:'PAUSE',w:'J\'ai besoin d\'une pause'},
+    {e:'👏',l:'SUPER',w:'C\'est super'},
+    {e:'🏠',l:'MAISON',w:'Je veux rentrer à la maison'},
+  ],
+  social:[
+    {e:'❤️',l:'JE T\'AIME',w:'Je t\'aime'},
+    {e:'🤝',l:'AMI',w:'Tu es mon ami'},
+    {e:'🙌',l:'BON TRAVAIL',w:'Bon travail'},
+    {e:'🎉',l:'FÊTER',w:'Fêtons ensemble'},
+    {e:'🍕',l:'MANGER',w:'Mangeons ensemble'},
+    {e:'🎮',l:'JOUER',w:'Jouons ensemble'},
+    {e:'🤣',l:'DRÔLE',w:'C\'est drôle'},
+    {e:'🤫',l:'SILENCE',w:'S\'il vous plaît silence'},
+    {e:'🤝',l:'DÉSOLÉ',w:'Je suis désolé'},
+    {e:'🤲',l:'PARDON',w:'Je te pardonne'},
+    {e:'📱',l:'TÉLÉPHONE',w:'Je veux utiliser le téléphone'},
+    {e:'😴',l:'DORMIR',w:'Je veux dormir'},
+  ],
+};
+
+const CATS_MAP={en:CATS_EN,es:CATS_ES,fr:CATS_FR};
+const CATS=CATS_EN;
     {e:'🤕',l:'HEADACHE',w:'I have a headache'},
     {e:'🤢',l:'NAUSEA',w:'I feel nauseous'},
     {e:'😤',l:'BREATHING',w:'I have trouble breathing'},
@@ -703,7 +908,7 @@ renderSavedPhrases();
 function renderSpeak(){
   const grid=document.getElementById('speak-grid');
   grid.innerHTML='';
-  const cats=lang==='en'?CATS:CATS_ES;
+  const cats=CATS_MAP[currentLang]||CATS_EN;
   (cats[currentCat]||cats['basic']).forEach(b=>{
     const d=document.createElement('div');
     d.className='speak-btn';
