@@ -519,7 +519,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
 });
 
 // ── COMMUNICATION CATEGORIES ──
-let currentLang='en';
+var currentLang='en';
 function setLang(lang,el){
   currentLang=lang;
   document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
