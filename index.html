@@ -192,10 +192,11 @@ footer{padding:40px 20px;text-align:center;border-top:2px solid var(--border);fo
     <button class="font-btn" onclick="setFont(1.2)" style="font-size:0.9rem;">A+</button>
     <button class="font-btn" onclick="setFont(1.5)" style="font-size:1.1rem;">A++</button>
   </div>
-  <div id="lang-btns" style="display:flex;gap:4px;">
+  <div id="lang-btns" style="display:flex;gap:4px;flex-wrap:wrap;">
     <button class="font-btn lang-btn active" onclick="setLang('en',this)">🇺🇸 EN</button>
     <button class="font-btn lang-btn" onclick="setLang('es',this)">🇪🇸 ES</button>
     <button class="font-btn lang-btn" onclick="setLang('fr',this)">🇫🇷 FR</button>
+    <button class="font-btn lang-btn" onclick="setLang('pt',this)">🇧🇷 PT</button>
   </div>
   <button id="tts-toggle" onclick="toggleTTS()" class="on">🔊 SPEAK</button>
 </nav>
@@ -490,13 +491,16 @@ function filterRes(){
 filterRes();
 
 // ── SPLASH ──
-setTimeout(()=>{document.getElementById('sp-name').style.opacity='1';document.getElementById('sp-sub').style.opacity='1';},600);
-setTimeout(()=>{const s=document.getElementById('splash');s.style.transition='opacity 0.7s';s.style.opacity='0';setTimeout(()=>s.style.display='none',700);},2400);
+function hideSplash(){const s=document.getElementById('splash');if(!s)return;s.style.transition='opacity 0.7s';s.style.opacity='0';setTimeout(()=>s.style.display='none',700);}
+setTimeout(()=>{document.getElementById('sp-name').style.opacity='1';document.getElementById('sp-sub').style.opacity='1';},300);
+setTimeout(hideSplash,1800);
+const spLogo=document.getElementById('sp-logo');
+if(spLogo){spLogo.onerror=()=>hideSplash();}
 
 // ── TTS ──
 let ttsOn=true;
 function toggleTTS(){ttsOn=!ttsOn;const b=document.getElementById('tts-toggle');b.textContent=ttsOn?'🔊 SPEAK':'🔇 MUTED';b.classList.toggle('on',ttsOn);}
-function speak(text){if(!ttsOn||!window.speechSynthesis)return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.rate=0.85;u.pitch=1.05;u.lang=currentLang==='fr'?'fr-FR':currentLang==='es'?'es-ES':'en-US';window.speechSynthesis.speak(u);}
+function speak(text){if(!ttsOn||!window.speechSynthesis)return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.rate=0.85;u.pitch=1.05;u.lang=currentLang==='fr'?'fr-FR':currentLang==='es'?'es-ES':currentLang==='pt'?'pt-BR':'en-US';window.speechSynthesis.speak(u);}
 
 // ── FONT ──
 function setFont(scale){document.body.style.fontSize=(scale*16)+'px';}
@@ -520,7 +524,7 @@ function setLang(lang,el){
   currentLang=lang;
   document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
   el.classList.add('active');
-  const langNames={en:'English',es:'Español',fr:'Français'};
+  const langNames={en:'English',es:'Español',fr:'Français',pt:'Português'};
   speak(langNames[lang]);
   renderSpeak();
 }
@@ -744,7 +748,80 @@ const CATS_FR={
   ],
 };
 
-const CATS_MAP={en:CATS_EN,es:CATS_ES,fr:CATS_FR};
+const CATS_PT={
+  basic:[
+    {e:'👋',l:'OLÁ',w:'Olá'},
+    {e:'🆘',l:'ME AJUDE',w:'Me ajude'},
+    {e:'✅',l:'SIM',w:'Sim'},
+    {e:'❌',l:'NÃO',w:'Não'},
+    {e:'🙏',l:'OBRIGADO',w:'Obrigado'},
+    {e:'🤲',l:'POR FAVOR',w:'Por favor'},
+    {e:'⏸️',l:'PAUSA',w:'Preciso de uma pausa'},
+    {e:'📞',l:'LIGAR',w:'Ligue para alguém'},
+    {e:'🚽',l:'BANHEIRO',w:'Banheiro'},
+    {e:'👍',l:'OK',w:'Está bem'},
+    {e:'👈',l:'VEM CÁ',w:'Vem cá por favor'},
+    {e:'✋',l:'PARE',w:'Pare'},
+  ],
+  feelings:[
+    {e:'😊',l:'FELIZ',w:'Estou feliz'},
+    {e:'😢',l:'TRISTE',w:'Estou triste'},
+    {e:'😠',l:'BRAVO',w:'Estou bravo'},
+    {e:'😰',l:'ANSIOSO',w:'Estou ansioso'},
+    {e:'😴',l:'CANSADO',w:'Estou cansado'},
+    {e:'😣',l:'DOR',w:'Estou com dor'},
+    {e:'😌',l:'CALMO',w:'Estou calmo'},
+    {e:'🤩',l:'ANIMADO',w:'Estou animado'},
+    {e:'😨',l:'ASSUSTADO',w:'Estou assustado'},
+    {e:'🥱',l:'ENTEDIADO',w:'Estou entediado'},
+    {e:'🤗',l:'AMADO',w:'Me sinto amado'},
+    {e:'😤',l:'FRUSTRADO',w:'Estou frustrado'},
+  ],
+  medical:[
+    {e:'💊',l:'REMÉDIO',w:'Preciso do meu remédio'},
+    {e:'🤕',l:'DOR DE CABEÇA',w:'Estou com dor de cabeça'},
+    {e:'🤢',l:'NÁUSEA',w:'Estou com náusea'},
+    {e:'😤',l:'RESPIRAR',w:'Tenho dificuldade para respirar'},
+    {e:'🩺',l:'MÉDICO',w:'Preciso de um médico'},
+    {e:'🏥',l:'HOSPITAL',w:'Me leve ao hospital'},
+    {e:'💉',l:'INJEÇÃO',w:'Preciso de uma injeção'},
+    {e:'🩹',l:'FERIDA',w:'Tenho uma ferida'},
+    {e:'🫀',l:'PEITO',w:'Estou com dor no peito'},
+    {e:'😵',l:'TONTO',w:'Estou tonto'},
+    {e:'🥵',l:'CALOR',w:'Estou com muito calor'},
+    {e:'🥶',l:'FRIO',w:'Estou com muito frio'},
+  ],
+  school:[
+    {e:'✏️',l:'ESCREVER',w:'Quero escrever'},
+    {e:'📖',l:'LER',w:'Quero ler'},
+    {e:'❓',l:'PERGUNTA',w:'Tenho uma pergunta'},
+    {e:'🙋',l:'AJUDA',w:'Pode me ajudar'},
+    {e:'✅',l:'PRONTO',w:'Terminei'},
+    {e:'🔁',l:'DE NOVO',w:'Pode repetir'},
+    {e:'😕',l:'CONFUSO',w:'Não entendi'},
+    {e:'💻',l:'COMPUTADOR',w:'Quero usar o computador'},
+    {e:'🎨',l:'ARTE',w:'Quero fazer arte'},
+    {e:'🏃',l:'PAUSA',w:'Preciso de uma pausa'},
+    {e:'👏',l:'ÓTIMO',w:'Isso é ótimo'},
+    {e:'🏠',l:'CASA',w:'Quero ir para casa'},
+  ],
+  social:[
+    {e:'❤️',l:'TE AMO',w:'Te amo'},
+    {e:'🤝',l:'AMIGO',w:'Você é meu amigo'},
+    {e:'🙌',l:'BOM TRABALHO',w:'Bom trabalho'},
+    {e:'🎉',l:'CELEBRAR',w:'Vamos celebrar'},
+    {e:'🍕',l:'COMER JUNTO',w:'Vamos comer juntos'},
+    {e:'🎮',l:'BRINCAR',w:'Vamos brincar'},
+    {e:'🤣',l:'ENGRAÇADO',w:'Isso é engraçado'},
+    {e:'🤫',l:'SILÊNCIO',w:'Por favor silêncio'},
+    {e:'🤝',l:'DESCULPA',w:'Me desculpe'},
+    {e:'🤲',l:'PERDÃO',w:'Eu te perdoo'},
+    {e:'📱',l:'TELEFONE',w:'Quero usar o telefone'},
+    {e:'😴',l:'DORMIR',w:'Quero dormir'},
+  ],
+};
+
+const CATS_MAP={en:CATS_EN,es:CATS_ES,fr:CATS_FR,pt:CATS_PT};
 const CATS=CATS_EN;
     {e:'🤕',l:'HEADACHE',w:'I have a headache'},
     {e:'🤢',l:'NAUSEA',w:'I feel nauseous'},
